@@ -1,0 +1,153 @@
+.modalContainer {
+  position: fixed;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.modalContainer.enter {
+  animation: fadein-container 0.5s forwards;
+}
+
+.modalContainer.leave {
+  animation: fadeout-container 0.5s forwards;
+}
+
+.modalContent {
+  margin: 10% auto;
+  padding: 20px;
+  width: 60%;
+  max-width: 500px;
+  text-align: center;
+  border-radius: 1%;
+  background-color: white;
+  -webkit-box-shadow: 3px 7px 35px 0px rgba(0,0,0,0.30);
+  -moz-box-shadow: 3px 7px 35px 0px rgba(0,0,0,0.30);
+  box-shadow: 3px 7px 35px 0px rgba(0,0,0,0.30);
+}
+
+.modalContent.enter {
+  animation: fadein 0.5s forwards;
+  -webkit-transition: background-color 0.3s ease-out;
+  -moz-transition: background-color 0.3s ease-out;
+  -o-transition: background-color 0.3s ease-out;
+  transition: background-color 0.3s ease-out;
+}
+
+.modalContent.leave {
+  box-shadow: none;
+  animation: fadeout 0.5s forwards;
+}
+
+.modalError {
+  color: red;
+}
+
+.modalForm input:focus,
+.modalForm button:focus {
+  outline:none;
+}
+
+.modalForm {
+  border: solid 1px transparent;
+  text-align: center;
+}
+
+.modalForm input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  display: block;
+  margin: auto;
+  border: none;
+  border: solid 1px rgb(200,200,200);
+  border-bottom: solid 3px rgb(220,220,220);
+  border-radius: 5px;
+  font-size: 16px;
+  height: 30px;
+  margin-top: 20px;
+  padding: 2px 5px;
+}
+
+.modalForm label {
+  display: block;
+  text-align: center;
+  line-height: 150%;
+}
+
+.modalContent hr {
+  width: 80%;
+  border: solid 1px rgb(230,230,230);
+  margin: 20px auto;
+}
+
+.mediaLogin {
+  display: block;
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+  padding: 15px 20px;
+  width: 240px;
+  margin: auto;
+  cursor: pointer;
+  animation: scale-off 0.5s forwards;
+  -webkit-backface-visibility: hidden;
+}
+
+.mediaLogin.facebook {
+  background-color: #3B5998;
+}
+
+.mediaLogin.google {
+  background-color: #D62D20;
+}
+
+#modalSubmit {
+  background-color: black;
+  color: white;
+  font-size: 16px;
+  width: 35%;
+  margin: 5% 0%;
+  border: none;
+  font-weight: 300;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 30px;
+  letter-spacing: 1px;
+}
+
+#modalClose {
+  float: right;
+  font-size: 30px;
+  cursor: pointer;
+  color: #DADADA;
+  transition: color 0.5s ease;
+}
+
+#modalClose:hover,
+#modalClose:focus {
+  transition: color 0.5s ease;
+  color: red;
+}
+
+@media (max-device-height: 800px) {
+  .modalContent {
+    margin: 5% auto;
+    max-width: none;
+    width: 85%;
+  }
+  .modalForm input {
+    font-size: 16px;
+    margin-top: 5px;
+  }
+  .mediaLogin {
+    padding: 13px 15px;
+  }
+}

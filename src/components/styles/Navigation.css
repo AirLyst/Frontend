@@ -1,0 +1,90 @@
+.navOntop {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 4;
+}
+.navPlaceholder {
+  display: block;
+  height: 75px;
+}
+.navButton {
+  display: inline;
+  float: right;
+  color: black;
+  font-size: 18px;
+  background-color: transparent;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  animation: zoom-out 0.3s;
+  text-decoration: none;
+  margin: 0px 10px;
+}
+
+#navButton:hover,
+#navButton:focus {
+  border-bottom: solid 2px black;
+  animation: zoom-in 0.3s;
+}
+
+#navLogo {
+/*  font-size: 20px;
+  border: solid 4px;
+  background-color: black;
+  color: white;
+  letter-spacing: 2px;
+  font-weight: 700;
+  padding: 4px 10px;
+  text-decoration: none;
+} BLACK LOGO */
+
+  font-size: 20px;
+  letter-spacing: 2px;
+  font-weight: 700;
+  padding: 4px 10px;
+  text-decoration: none;
+  color: white;
+  background: #ff9966;
+  background: -webkit-linear-gradient(to left, #ff5e62, #ff9966); 
+  background: linear-gradient(to left, #ff5e62, #ff9966); 
+}
+
+.navContainer {
+  width: 100%;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+
+.navContent {
+  width: 75%;
+  max-width: 1200px;
+  padding: 20px;
+  margin: auto;
+}
+
+
+@media (max-device-height: 800px) {
+  #navLogo {
+    font-size: 14px;
+    border: transparent 0px;
+  }
+  #navLogo:hover,
+  #navLogo:focus {
+    background-color: black;
+    color: white;
+  }
+  .navButton {
+    font-size: 14px;
+    margin-top: 3px;
+  }
+  .navContent {
+    width: 87%;
+  }
+  .navPlaceholder {
+    height: 80px;
+  }
+}

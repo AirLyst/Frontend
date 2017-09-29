@@ -1,0 +1,24 @@
+  .Modal {
+    position: absolute;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    bottom: 40px;
+    background-color: white;
+    width: 60%;
+    max-width: 700px;
+    margin: auto;
+    height: calc(70vh - 100px);
+    animation: fade-enter 0.4s forwards;
+  }
+
+  .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 5;
+    animation: fade 0.5s forwards;
+  }

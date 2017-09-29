@@ -1,0 +1,42 @@
+.sellDropzone {
+  margin: auto;
+  border: solid 2px rgb(200,200,200);
+  cursor: pointer;
+  width: 150px;
+}
+
+#faCamera {
+  font-size: 50px;
+  color: #FF9666;
+  padding: 50px;
+}
+
+.previewContainer {
+  margin: 0 10%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.deleteAll {
+  cursor: pointer;
+}
+
+.disabled {
+  color: #DBDBDB !important;
+  position: relative;
+  &:after {
+    content: "maximum reached";
+    font-weight: bold;
+    font-size: 14px;
+    color:black;
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Karla', helvetica, sans-serif;
+  }
+}

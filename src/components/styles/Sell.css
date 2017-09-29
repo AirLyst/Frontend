@@ -1,0 +1,74 @@
+.sellContainer {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  text-align: center;
+  animation: fade .5s forwards;
+}
+
+.sellContainer hr {
+  width: 30%;
+  margin-top: 20px;
+  border: solid 1px rgb(230,230,230);
+  border-top: 0px;
+}
+
+.sellContainer p {
+  width: 60%;
+  margin: auto;
+}
+
+.listingContainer {
+  display: flex;
+  width: 70%;
+  max-width: 600px;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  justify-content: space-around;
+}
+
+.listingContainer textarea {
+  resize: none;
+  font-size: 18px;
+  width: 40%;
+  outline: none;
+  border: solid 1px rgb(200,200,200);
+}
+
+.listingDescription {
+  display: flex;
+  flex-direction: column;
+}
+
+.listingDescription textarea {
+  width: 300px;
+  height: 250px;
+
+}
+
+.listingOption {
+  width: 25%;
+  max-width: 250px;
+  min-width: 200px;
+  margin: auto;
+}
+
+.listingContainer label {
+  color: rgb(180,180,180);
+}
+
+#inputPhotos {
+  width: 20%;
+  border: solid;
+}
+
+#titleInput {
+  width: 91%;
+  min-width: 140px;
+  font-size: 14px;
+  padding: 8px 10px;
+  border: none;
+  border-bottom: solid 2px rgb(230,230,230);
+  /*border-radius: 5px;*/
+  outline: none;
+}

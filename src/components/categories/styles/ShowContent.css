@@ -1,0 +1,61 @@
+.showContentContainer {
+  display: flex;
+  width: 95%;
+  max-width: 1200px;
+  margin: auto;
+}
+.showContent {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+  height: calc(100vh - 200px);
+  min-height: 750px;
+  border: solid 1px rgb(220,220,220);
+  border-radius: 5px;
+}
+
+.showContent h1 {
+  color: #FF9666;
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.showContent hr {
+  border: none;
+  border-bottom: solid 1px rgb(220,220,220);
+}
+
+#filterArrow {
+  display: block;
+  font-size: 30px;
+  color: rgb(230,230,230);
+  font-weight: 300;
+  text-align: center;
+  margin: auto;
+  cursor: pointer;
+}
+
+#filterArrow:hover,
+#filterArrow:focus {
+  animation: spin 1s infinite;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+#pageForward {
+  font-size: 30px;
+  color: #FF9666;
+  cursor: pointer;
+}
+
+#pagePrevious {
+  color: #FF9666;
+  cursor: pointer;
+  font-size: 30px;
+}

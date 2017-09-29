@@ -1,0 +1,45 @@
+.hotContainer {
+  animation: fade 1.5s;
+  text-align: center;
+  max-width: 1400px;
+  min-width: 600px;
+  margin: auto;
+}
+
+.hotContainer h1 {
+  font-weight: 300;
+}
+
+.hotContainer hr {
+  width: 50%;
+  min-width: 500px;
+  border: solid 1px rgb(200,200,200);
+  border-bottom: 0px;
+}
+
+.hotItems { 
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 70%;
+  margin: 20px auto;
+}
+
+.hotItems p {
+  margin-top: 0px;
+  text-align: left;
+}
+
+.item {
+  margin: 0px 30px;
+}
+
+@media (max-device-width: 800px) {
+  .hotContainer{
+    min-width: 0px;
+  }
+
+  .hotContainer hr {
+    min-width: 0px;
+  }
+}

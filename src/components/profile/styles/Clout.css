@@ -1,0 +1,19 @@
+.cloutContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  margin: auto;
+}
+
+.cloutContainer h1 {
+  font-size: 40px;
+  color: #FF9666;
+}
+
+.cloutContainer h3 {
+  font-weight: 300;
+}
+
+.cloutFlexItem {
+  width: 20%;
+}

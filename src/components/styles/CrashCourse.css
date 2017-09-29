@@ -1,0 +1,15 @@
+.crashContainer {
+  text-align: center;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+.crashFlex {
+  display: flex;
+  justify-content: space-around;
+}
+.crashTextblock {
+  width: 35%;
+  text-align: left;
+}
+

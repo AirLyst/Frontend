@@ -1,0 +1,73 @@
+.settingsContainer{
+  width: 80%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.settingsContainer hr {
+  width: 10%;
+  max-width: 150px;
+}
+
+.settingsForm {
+  display: flex;
+  flex-direction: column;
+  // max-width: 250px;
+  // min-width: 200px;
+  align-self: center;    
+  align-items: center;
+  height: 350px;
+  justify-content: center;
+
+  flex-wrap: wrap;
+}
+
+.selectState {
+  box-sizing: border-box;
+  text-align: justify;
+  align-self: center;
+  font-size: 16px;
+  padding: 0px;
+  margin: 10px;
+}
+
+
+
+.settingsForm input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: auto;
+  border: none;
+  border: solid 1px rgb(200,200,200);
+  border-radius: 5px;
+  font-size: 16px;
+  height: 30px;
+  padding: 2px 5px;
+  margin: 10px;
+  // max-width: 250px;
+  // min-width: 200px;
+}
+
+.settingsForm input:focus,
+.settingsForm button:focus {
+  outline:none;
+}
+
+// .settingsSelect {
+//   max-width: 250px;
+//   min-width: 200px;
+// }
+
+.subBtn {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 1px 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+  padding: 2px 6px 3px;
+  border-width: 2px;
+  border-style: none ;
+  background: none;
+  float: right;
+}
