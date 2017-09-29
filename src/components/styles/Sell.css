@@ -35,16 +35,6 @@
   border: solid 1px rgb(200,200,200);
 }
 
-.listingDescription {
-  display: flex;
-  flex-direction: column;
-}
-
-.listingDescription textarea {
-  width: 300px;
-  height: 250px;
-
-}
 
 .listingOption {
   width: 25%;
