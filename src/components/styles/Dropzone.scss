@@ -1,11 +1,19 @@
 .sellDropzone {
   margin: auto;
-  border: solid 2px rgb(200,200,200);
+  border: solid 2px rgb(230,230,230);
   cursor: pointer;
   width: 150px;
 }
 
-#faCamera {
+.sellDropzone.active {
+  background-color: rgb(250,250,250);
+  margin: auto;
+  border: solid 2px white;
+  cursor: pointer;
+  width: 150px;
+}
+
+#faPhotos {
   font-size: 50px;
   color: #FF9666;
   padding: 50px;
