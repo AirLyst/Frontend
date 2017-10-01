@@ -6,32 +6,38 @@ import FontAwesome from 'react-fontawesome'
 import Dropzone from 'react-dropzone'
 import ImageCard from './ItemImage'
 
-// Be sure to include styles at some point, probably during your bootstrapping
+// actions
+import { sell } from '../actions/sell'
+
+// CSS, react-select CSS
 import 'react-select/dist/react-select.css';
 import './styles/Sell.css'
 import './styles/Dropzone.scss'
 
+// Sizing Data
 import { sizing, conditionOptions, categoryOptions } from './data/Sizing'
 
 class Sell extends Component {
 
   state = {
-    categoryValue: "tops",
-    sizeValue: "s",
-    condoValue: "new",
+    category: "tops",
+    size: "s",
+    condition: "new",
     title: "",
     price: "",
     brand: "",
-    description: "",
+    description: [],
     currentCat: [...sizing.oneSize, ...sizing.tops],
     photos: [],
-    maxed: false
+    maxed: false,
+    errors: {}
   }
 
   componentDidUpdate() {
     localStorage.setItem('cache-sell', JSON.stringify({
       ...this.state,
-      photos: []
+      photos: [],
+      maxed: false
     }))
   }
 
@@ -42,61 +48,88 @@ class Sell extends Component {
     }
   }
 
+  onSubmit = e => {
+    e.preventDefault()
+    const sellData = {
+      category: this.state.category,
+      size: this.state.size,
+      condition: this.state.condition,
+      name: this.state.title,
+      price: this.state.price, 
+      brand: this.state.brand, 
+      description: this.state.description,
+      photos: this.state.photos,
+      userId: this.props.user.user.id
+    }
+    this.props.sell(sellData)
+    .then(res => {
+      console.log(res.data)
+    })
+    // localStorage.removeItem('cache-sell')
+  }
+
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
 
-  onChangeDesc = (value, url) => {
-    console.log(value, url)
-    let photos = this.state.photos
-    photos[url].description = value
-    this.setState({ photos })
+  onChangeDesc = (value, index) => {
+    let { description } = this.state
+    description[index] = value
+    console.log(description)
+    // this.setState({
+    //   description
+    // })
+    // console.log(value, index)
+    // let photos = this.state.photos
+    // photos[index].description = value
+    // this.setState({ photos })
   }
 
-  onSubmit = e => {
-    e.preventDefault()
-    localStorage['cache-sell'] = null
-  }
 
   categoryChange = val => {
     if (!val)
-      this.setState({ categoryValue: null, currentCat: null })
+      this.setState({ category: null, currentCat: null })
     else
-      this.setState({ categoryValue: val.value, currentCat: [...sizing.oneSize, ...sizing[val.value]] })
+      this.setState({ category: val.value, currentCat: [...sizing.oneSize, ...sizing[val.value]] })
   }
 
   sizeChange = val => {
     if (!val)
-      this.setState({ sizeValue: null })
+      this.setState({ size: null })
     else
-      this.setState({ sizeValue: val.value })
+      this.setState({ size: val.value })
   }
 
   condoChange = val => {
     if (!val)
-      this.setState({ condoValue: null })
+      this.setState({ condition: null })
     else
-      this.setState({ condoValue: val.value })
+      this.setState({ condition: val.value })
   }
 
   onDrop = (acceptedFiles, rejectedFiles) => {
-    const imgBlobs = acceptedFiles.map(image => {
-      let val = {}
-      val.preview = image.preview
-      val.description = ''
-      return val
-    })
-    let photos = [...this.state.photos, ...imgBlobs]
+    let photos = [...this.state.photos, ...acceptedFiles]
     photos = photos.filter((curr, indx) => {
       return indx <= 5
     })
-    photos.length >= 6 ? this.setState({ photos, maxed: true }) : this.setState({ photos, maxed: false })
+    let description = photos.map((item, index) => { 
+      if(this.state.description[index] !== '')
+        return ''
+      else
+        return this.state.description[index]
+    })
+    if(photos.length >= 6)
+      this.setState({ photos, description, maxed: true })
+    else
+      this.setState({ photos, description, maxed: false })
   }
 
   onDel = index => { 
-    let { photos } = this.state
+    let { photos, description } = this.state
+    description.splice(index, 1)
     photos.splice(index, 1)
     this.setState({
+      description,
       photos,
       maxed: false
     })
@@ -148,7 +181,7 @@ class Sell extends Component {
             <Select
               name="form-field-name"
               className="listingSelect"
-              value={this.state.categoryValue}
+              value={this.state.category}
               options={categoryOptions}
               onChange={this.categoryChange}
             />
@@ -158,7 +191,7 @@ class Sell extends Component {
               placeholder="Select or Create..."
               name="form-field-name"
               className="listingSelect"
-              value={this.state.sizeValue}
+              value={this.state.size}
               options={this.state.currentCat}
               onChange={this.sizeChange}
             />
@@ -167,7 +200,7 @@ class Sell extends Component {
             <Select
               name="form-field-name"
               className="listingSelect"
-              value={this.state.condoValue}
+              value={this.state.condition}
               options={conditionOptions}
               onChange={this.condoChange}
             />
@@ -189,6 +222,7 @@ class Sell extends Component {
           <Dropzone
             disabled={this.state.maxed ? true : false}
             onDrop={this.onDrop}
+            accept="image/*" 
             name="Test"
             className="sellDropzone"
             activeClassName="sellDropzone active"
@@ -200,15 +234,34 @@ class Sell extends Component {
           </Dropzone>
           <span className="previewContainer">
             {this.state.photos.map((preview, key) => {
-              return <ImageCard src={preview} key={key} indx={key} onDel={this.onDel} onChangeDesc={this.onChangeDesc} />
+              return (
+                <ImageCard 
+                  src={preview} 
+                  key={key} 
+                  indx={key} 
+                  onDel={this.onDel} 
+                  onChangeDesc={this.onChangeDesc}
+                />
+              )
             })}
           </span>
         </div>
+        <button 
+          type="submit"
+          onClick={this.onSubmit}>
+          List it
+        </button>
       </div>
     );
   }
 }
 
-export default withRouter(connect()(Sell))
+function mapStateToProps(state){
+  return {
+    user: state.user
+  }
+}
+
+export default withRouter(connect(mapStateToProps, { sell })(Sell))
 
 
