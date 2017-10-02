@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes      from 'prop-types'
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 import Select, { Creatable } from 'react-select';
@@ -26,7 +27,8 @@ class Sell extends Component {
     title: "",
     price: "",
     brand: "",
-    description: [],
+    description: "",
+    photoDescription: [],
     currentCat: [...sizing.oneSize, ...sizing.tops],
     photos: [],
     maxed: false,
@@ -37,6 +39,7 @@ class Sell extends Component {
     localStorage.setItem('cache-sell', JSON.stringify({
       ...this.state,
       photos: [],
+      photoDescription: [],
       maxed: false
     }))
   }
@@ -58,14 +61,16 @@ class Sell extends Component {
       price: this.state.price, 
       brand: this.state.brand, 
       description: this.state.description,
+      photoDescription: this.state.photoDescription,
       photos: this.state.photos,
-      userId: this.props.user.user.id
+      userId: this.props.user.info.id
     }
     this.props.sell(sellData)
     .then(res => {
-      console.log(res.data)
+      this.context.router.history.push('/')
     })
-    // localStorage.removeItem('cache-sell')
+    .catch(err => console.log(err))
+    localStorage.removeItem('cache-sell')
   }
 
   onChange = e => {
@@ -73,12 +78,11 @@ class Sell extends Component {
   }
 
   onChangeDesc = (value, index) => {
-    let { description } = this.state
-    description[index] = value
-    console.log(description)
-    // this.setState({
-    //   description
-    // })
+    let { photoDescription } = this.state
+    photoDescription[index] = value
+    this.setState({
+      photoDescription
+    })
     // console.log(value, index)
     // let photos = this.state.photos
     // photos[index].description = value
@@ -112,24 +116,24 @@ class Sell extends Component {
     photos = photos.filter((curr, indx) => {
       return indx <= 5
     })
-    let description = photos.map((item, index) => { 
-      if(this.state.description[index] !== '')
+    let photoDescription = photos.map((item, index) => { 
+      if(this.state.photoDescription[index] !== '')
         return ''
       else
-        return this.state.description[index]
+        return this.state.photoDescription[index]
     })
     if(photos.length >= 6)
-      this.setState({ photos, description, maxed: true })
+      this.setState({ photos, photoDescription, maxed: true })
     else
-      this.setState({ photos, description, maxed: false })
+      this.setState({ photos, photoDescription, maxed: false })
   }
 
   onDel = index => { 
-    let { photos, description } = this.state
-    description.splice(index, 1)
+    let { photos, photoDescription } = this.state
+    photoDescription.splice(index, 1)
     photos.splice(index, 1)
     this.setState({
-      description,
+      photoDescription,
       photos,
       maxed: false
     })
@@ -205,9 +209,15 @@ class Sell extends Component {
               onChange={this.condoChange}
             />
           </div>
+          <br/>
+          <div className="listingTextarea">
+            <label>Description</label>
+            <textArea
+              name="description"
+              onChange={this.onChange}
+            />
+          </div>
         </div>
-        <br />
-        <br />
         <div className="sellContainer">
           <h1>Add photos</h1>
           <hr />
@@ -240,17 +250,20 @@ class Sell extends Component {
                   key={key} 
                   indx={key} 
                   onDel={this.onDel} 
+                  description={this.state.photoDescription}
                   onChangeDesc={this.onChangeDesc}
                 />
               )
             })}
           </span>
-        </div>
+        <br/>
         <button 
           type="submit"
+          className="sellButton"
           onClick={this.onSubmit}>
-          List it
+          Create Listing
         </button>
+        </div>
       </div>
     );
   }
@@ -260,6 +273,10 @@ function mapStateToProps(state){
   return {
     user: state.user
   }
+}
+
+Sell.contextTypes = {
+  router: PropTypes.object.isRequired
 }
 
 export default withRouter(connect(mapStateToProps, { sell })(Sell))
