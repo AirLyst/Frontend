@@ -22,9 +22,9 @@ class Profile extends Component {
         <div className="profileContainer">
           <br />
           <div className="profileBubble">
-            {this.props.user.user.firstName[0]}
+            {this.props.user.info.firstName[0]}
           </div>
-          <h3>{`${this.props.user.user.firstName} ${this.props.user.user.lastName}`}</h3>
+          <h3>{`${this.props.user.info.firstName} ${this.props.user.info.lastName}`}</h3>
           <hr />
           <div className="catContainer">
             <span className="catContent">

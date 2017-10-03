@@ -1,10 +1,24 @@
 import React, { Component } from 'react';
+import axios from 'axios'
 
 import AnimatedBox  from '../reusable/AnimatedBox.jsx'
 
 import '../styles/Trending.css'
 
 class Trending extends Component {
+  state = {
+    recentItems: []
+  }
+  componentWillMount() {
+    const quantity = { quantity: 8 }
+    axios.post('http://localhost:4000/api/listing/recents', quantity)
+    .then(res => {
+      let { recentItems } = this.state
+      recentItems = [...recentItems, ...res.data]
+      this.setState({ recentItems: recentItems })
+      console.log(res)
+    })
+  }
   render() {
 
     return (
@@ -15,12 +29,20 @@ class Trending extends Component {
           <hr />
             <div className="hotItems">
               {
-                sampleItems.map((item, key) => {
+                this.state.recentItems.map((item, key) => {
                   return (
-                    <span key={key} className="item">
-                      <img src="http://via.placeholder.com/120x120" alt={item}/>
-                      <p>{item}</p>
-                    </span>
+                    <div key={key} className="imgContainer">
+                      <div className="imgPreview no-hover">
+                        <a href={`/listings/${item._id}`}>
+                        <img 
+                          src={item.photos[0]} 
+                          alt={item.brand}
+                          className="imgContent"
+                          />
+                        </a>
+                        <p>{item.brand}</p>
+                      </div>
+                    </div>
                   )
                 })
               }
@@ -30,16 +52,5 @@ class Trending extends Component {
     )
   }
 }
-
-    const sampleItems = [
-      "Please",
-      "Don't",
-      "Touch",
-      "My",
-      "Raf",
-      "Place",
-      "Holder",
-      "Yuhhhh"
-    ]
 
 export default Trending

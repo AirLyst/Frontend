@@ -32,6 +32,12 @@
         }
     }
   }
+  .imgPreview.no-hover:hover {
+    .imgContent {
+        transition: none;
+        opacity: 1;
+    }
+  }
 
   .expandImg {
     color: #E2E2E2;

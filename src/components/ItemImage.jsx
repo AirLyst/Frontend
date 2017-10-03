@@ -13,12 +13,12 @@ class ImageCard extends Component {
   render() {
     return (
       <div className='imgContainer'>
-        {this.state.large ? <Polaroid indx={this.props.indx} src={this.props.src} onChangeDesc={this.props.onChangeDesc} /> : null}
-        {this.state.large ? <span className="overshadow" onClick={this.expand} /> : null}
-        <div className='imgPreview'>
-          <span className="delImg" onClick={() => this.props.onDel(this.props.indx)} src={this.props.src}>Delete</span>
+        {this.state.large && <Polaroid indx={this.props.indx} description={this.props.description} src={this.props.src} onChangeDesc={this.props.noEdit ? false : this.props.onChangeDesc} />}
+        {this.state.large && <span className="overshadow" onClick={this.expand} />}
+        <div className='imgPreview' onClick={this.props.noEdit && this.expand}>
+          {this.props.noEdit ? null : <span className="delImg" onClick={() => this.props.onDel(this.props.indx)} src={this.props.src}>Delete</span>}
           <span className="expandImg" onClick={this.expand}>Open</span>
-          <img src={this.props.src.preview} alt='item' className="imgContent" />
+          <img src={this.props.src.preview || this.props.src} alt='item' className="imgContent" />
         </div>
       </div>
     )

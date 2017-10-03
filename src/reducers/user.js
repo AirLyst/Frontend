@@ -11,7 +11,7 @@ export default (state = initialState, action= {}) => {
     case SET_CURRENT_USER: // If the action is setting current user
       return {
         isAuthenticated: !isEmpty(action.user),
-        user: action.user
+        info: action.user
       } // Add to redux state the user
     default: return state // Action doesnt apply
   }
