@@ -10,14 +10,15 @@ class Trending extends Component {
     recentItems: []
   }
   componentWillMount() {
-    const quantity = { quantity: 8 }
+    const quantity = { quantity: 6 }
     axios.post('http://localhost:4000/api/listing/recents', quantity)
     .then(res => {
-      console.log(res)
+      console.log(res.data[1])
       let { recentItems } = this.state
       recentItems = [...recentItems, ...res.data]
       this.setState({ recentItems: recentItems })
     })
+    .catch(err => console.log(err.message))
   }
   render() {
 
@@ -35,7 +36,7 @@ class Trending extends Component {
                       <div className="imgPreview no-hover">
                         <a href={`/listings/${item._id}`}>
                         <img
-                          src={item.photos[0].image} 
+                          src={item.photos[0].image || null} 
                           alt={item.brand}
                           className="imgContent"
                           />
