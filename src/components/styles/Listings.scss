@@ -1,3 +1,5 @@
+$tag: #ff6d63;
+
 .loadingContainer {
   height: calc(100vh - 100px);
   padding: 0;
@@ -30,10 +32,17 @@
 
 .listingImageContainer {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
   max-width: 900px;
   margin: auto;
+}
+
+.sparound {
+  justify-content: space-around;
+}
+
+.spbetween {
+  justify-content: space-between;
 }
 
 .listingImageContainer img {
@@ -50,4 +59,70 @@
 
 .listingInfoContainer h3 {
   line-height: 5px;
+}
+
+.descriptionCard {
+  width: 200px;
+  margin: 20px;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.sellDescription {
+  margin: 50px 10%;
+  display: flex;
+  align-self: center;
+}
+
+.listingTag-price {
+  // height: 40px;
+  padding: 10px;
+  font-weight: bold;
+  cursor: default;
+  position: relative;
+  color: white;
+  background: $tag;
+  width: calc(100% - 28px);
+  display: inline-block;
+  margin-top:0;
+  &:before {
+    position: absolute;
+    left: -14px;
+    content: " ";
+    color: white;
+    width: 0;
+    top: 0;
+    height: 19px;
+    border-top: 10px solid transparent;
+    border-right: 14px solid $tag;
+    border-bottom: 10px solid transparent;
+  }
+  &:after{
+    content: "●";
+    position: absolute;
+    left: -9px;
+    height: 0;
+    font-size: 12px;
+    top: 30%;
+  }
+}
+
+.listingTag-end {
+  position: absolute;
+  right: -14px;
+  width: 14px;
+  top:0;
+  background: $tag;
+  height: 39px;
+}
+
+.listingTag {
+  // height: 40px;
+  font-weight: bold;
+  padding: 10px;
+  background: $tag;
+  cursor: default;
+  color: white;
 }

@@ -40,33 +40,43 @@ class Listings extends Component {
             <div className="listingInfoContainer">
               <span>
                 <h3>Brand</h3>
-                <p>{this.state.listing.brand}</p>
+                <p className='listingTag'>{this.state.listing.brand}</p>
               </span>
               <span>
                 <h3>Price</h3>
-                <p>${this.state.listing.price}</p>
+                <p className='listingTag-price'>${this.state.listing.price}<span className='listingTag-end' /></p>
               </span>
               <span>
                 <h3>Size</h3>
-                <p>{this.state.listing.size}</p>
+                <p className='listingTag'>{this.state.listing.size}</p>
               </span>
               <span>
                 <h3>Condition</h3>
-                <p>{this.state.listing.condition}</p>
+                <p className='listingTag'>{this.state.listing.condition}</p>
               </span>
             </div>
+
+            <div className='sellDescription'>
+              {this.state.listing.description}  
+            </div>            
+
             <h1>Photos & Descriptions</h1>
-            <hr />
-            <div className="listingImageContainer">
+            <div className={this.state.listing.photos.length >= 3 ? "listingImageContainer spbetween" : "listingImageContainer sparound"}>
               {this.state.listing.photos.map((photo, key) => {
                 return (
-                  <ImageCard 
-                    src={photo.image} 
-                    key={key} 
-                    indx={key} 
-                    onDel={this.onDel}
-                    noEdit 
-                  />
+                  <span>
+                    <ImageCard 
+                      src={photo.image} 
+                      description={photo.description} 
+                      key={key} 
+                      indx={key}
+                      onDel={this.onDel}
+                      noEdit 
+                    />
+                  <div className='descriptionCard'>
+                    {photo.description}
+                  </div>
+                  </span>
                 )
               })}
             </div>

@@ -19,21 +19,26 @@ class Polaroid extends Component {
                     <img 
                     alt='item'
                     title={this.state.expanded ? 'click to shrink' : 'click to see whole image'}
-                    src={this.props.src.preview || this.props.src} 
+                    src={this.props.src != undefined ? this.props.src.preview || this.props.src : ''}
                     onClick={this.openLarge} 
                     className={this.state.expanded ? 'expanded-polaroid polaroid' : 'polaroid-regular polaroid'}
                     />
-                    <span className="polaroidBottom">
-                        { this.props.onChangeDesc &&
+                        { this.props.onChangeDesc != false ?
                         <textarea
                             type="text"
-                            className="polaroidDescription"
+                            className="polaroidDescription polaroidBottom"
                             onChange={(e) => this.props.onChangeDesc(e.target.value, this.props.indx)}
-                            value={this.props.description[this.props.indx]}
+                            value={this.props.description}
                             placeholder='Describe this picture'
-                        />
+                        /> : 
+                        <textarea
+                            readOnly
+                            type="text"
+                            className="polaroidDescription polaroidBottom"
+                            value={this.props.description}
+                            placeholder=''
+                        /> 
                         }
-                    </span>
                 </span>
             </div>
         )

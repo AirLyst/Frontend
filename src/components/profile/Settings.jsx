@@ -5,7 +5,7 @@ import FontAwesome from 'react-fontawesome'
 
 import './styles/Settings.scss'
 
-class Settings extends Component {
+class Settings extends Component {  
 
   state = {
     fullName: "",
@@ -15,8 +15,9 @@ class Settings extends Component {
   }
 
   componentWillMount() {
-    if(this.props.user) {
-      const { firstName, lastName } = this.props.user.user
+    console.log(this.props)
+    if(this.props.user.info) {
+      const { firstName, lastName } = this.props.user.info
 
       this.setState({
         fullName: `${firstName} ${lastName}`
