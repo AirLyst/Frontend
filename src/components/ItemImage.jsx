@@ -18,7 +18,7 @@ class ImageCard extends Component {
         <div className='imgPreview' onClick={this.props.noEdit && this.expand}>
           {this.props.noEdit ? null : <span className="delImg" onClick={() => this.props.onDel(this.props.indx)} src={this.props.src}>&times;</span>}
           <img 
-            src={this.props.src != undefined ? this.props.src.preview || this.props.src : ''}
+            src={this.props.src !== undefined ? this.props.src.preview || this.props.src : ''}
             onClick={this.expand}
             alt='item'
             className='imgContent' 

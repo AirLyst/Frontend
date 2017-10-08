@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes      from 'prop-types'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 
@@ -15,18 +16,23 @@ class Listings extends Component {
     listing: {
       photos: []
     },
+    user: '',
     isLoading: true
   }
-  componentWillMount() {
+  componentWillMount = async () => {
     const regExp = new RegExp('(?:.*?\\/){2}(.*)', 'g')
     const listingID = regExp.exec(this.context.router.history.location.pathname)[1]
-    axios.post('http://localhost:4000/api/listing/id', { _id: listingID })
+    await axios.post('http://localhost:4000/api/listing/id', { _id: listingID })
     .then(res => {
       console.log(res.data)
       this.setState({ 
         listing: res.data, 
         isLoading: false
       })
+    })
+    await axios.get(`http://localhost:4000/api/user/${this.state.listing.user}/name`)
+    .then(res=> {
+      this.setState({ user: res.data })
     })
   }
   render() {
@@ -36,6 +42,7 @@ class Listings extends Component {
           this.state.isLoading ? <Loading /> : (
           <div className="listingPageContainer">
             <h1>{this.state.listing.name}</h1>
+            <h4>listed by: {this.state.user}</h4>
             <hr />
             <div className="listingInfoContainer">
               <span>
@@ -64,7 +71,7 @@ class Listings extends Component {
             <div className={this.state.listing.photos.length >= 3 ? "listingImageContainer spbetween" : "listingImageContainer sparound"}>
               {this.state.listing.photos.map((photo, key) => {
                 return (
-                  <span>
+                  <span key={key}>
                     <ImageCard 
                       src={photo.image} 
                       description={photo.description} 
