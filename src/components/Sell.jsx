@@ -7,7 +7,6 @@ import FontAwesome from 'react-fontawesome'
 import Dropzone from 'react-dropzone'
 import ImageCard from './ItemImage'
 import Validator from 'validator'
-import isEmpty from 'lodash'
 
 // Components
 import Loading from './Loading.jsx'

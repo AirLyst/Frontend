@@ -5,6 +5,7 @@ import { connect }          from 'react-redux'
 import { logout }   from '../actions/login'
 
 // Components
+import ProfileBubble from './profile/ProfileBubble.jsx'
 import SignupModal from './SignupModal.jsx'
 import Login from './Login.jsx'
 import NavMobile from './NavMobile.jsx'
@@ -15,9 +16,20 @@ import './styles/Navigation.css'
 class Navigation extends Component {
 
   state = {
+    fullName: '',
     signup: false,
     login: false,
     category: false,
+    dropdown: false,
+  }
+
+  componentWillMount() {
+    const { firstName, lastName } = this.props.user.info
+    if (firstName || lastName) 
+      this.setState({ fullName: `${firstName} ${lastName}`})
+  }
+  toggleMenu = () => {
+    this.setState({ dropdown: !this.state.dropdown })
   }
 
   toggleSignup = () => {
@@ -30,6 +42,11 @@ class Navigation extends Component {
 
   toggleCat = () => {
     this.setState({ category: !this.state.category})
+  }
+
+  logout = () => {
+    this.setState({ dropdown: false })
+    this.props.logout()
   }
 
   closeModal = () => {
@@ -49,10 +66,15 @@ class Navigation extends Component {
     )
 
     const loggedIn = (
-      <span className="navActions">
-        <Link to="/" onClick={this.props.logout} className="navButton">Logout</Link>
-        <Link to="/sell" className="navButton">Sell</Link>
-        <Link to={`/profile`} className="navButton">Profile</Link>
+      <span className="navBubble">
+        <ProfileBubble small/>
+        <p onClick={this.toggleMenu}>{this.state.fullName} <span>&#x2335;</span></p>
+        {this.state.dropdown && 
+          <ul className="dropdown">
+            <li><Link to="/sell" className="dropdownLink" onClick={this.toggleMenu}>Sell</Link></li>
+            <li><Link to={`/profile`} className="dropdownLink" onClick={this.toggleMenu}>Profile</Link></li>
+            <li><Link to="/" className="dropdownLink" onClick={this.logout}>Logout</Link></li>
+          </ul>}
       </span>
     )
 
@@ -86,3 +108,5 @@ function mapStateToProps(state){
 }
 
 export default withRouter(connect(mapStateToProps, { logout })(Navigation))
+
+/*         */

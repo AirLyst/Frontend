@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import Select from 'react-select' 
 import { connect } from 'react-redux'
 import FontAwesome from 'react-fontawesome'
@@ -6,22 +6,11 @@ import FontAwesome from 'react-fontawesome'
 import './styles/Settings.scss'
 
 class Settings extends Component {
-
   state = {
     fullName: "",
     city: "",
-    selectedState: ""
-
-  }
-
-  componentWillMount() {
-    if(this.props.user) {
-      const { firstName, lastName } = this.props.user.user
-
-      this.setState({
-        fullName: `${firstName} ${lastName}`
-      })
-    }
+    selectedState: "",
+    croppedImg: "",
   }
 
   handleUpdate = (e) => {
@@ -35,11 +24,16 @@ class Settings extends Component {
   onSelect = e => {
     this.setState({ selectedState: e.value })
   }
+  crop = () => {
+    this.setState({ croppedImg: this.refs.cropper.getCroppedCanvas().toDataURL()})
+  }
   render() {
     return (
       <div className="settingsContainer">
       <p>Update your settings.</p>
       <hr />
+      <div className='profilePicContainer'>
+      </div>
         <form className="settingsForm" onSubmit={this.handleUpdate}>
           <div className="formInner">
           <input 

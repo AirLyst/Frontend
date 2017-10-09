@@ -18,11 +18,10 @@ class Listings extends Component {
     isLoading: true
   }
   componentWillMount() {
-    const regExp = new RegExp('(?:.*?\\/){2}(.*)', 'g')
-    const listingID = regExp.exec(this.context.router.history.location.pathname)[1]
+    console.log(this.props)
+    const listingID = this.props.match.params[0]
     axios.post('http://localhost:4000/api/listing/id', { _id: listingID })
     .then(res => {
-      console.log(res.data)
       this.setState({ 
         listing: res.data, 
         isLoading: false
