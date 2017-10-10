@@ -321,7 +321,7 @@ class Sell extends Component {
                         key={key} 
                         indx={key} 
                         onDel={this.onDel} 
-                        description={this.state.photoDescriptions}
+                        description={this.state.photoDescriptions[key]}
                         onChangeDesc={this.onChangeDesc}
                       />
                     )

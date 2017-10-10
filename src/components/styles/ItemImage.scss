@@ -132,7 +132,8 @@
 }
 
 .polaroidDescription {
-    width: calc( 90% - 40px);
+    width: fill-available;
+    width: -webkit-fill-available;
     padding: 20px;
     resize: none;
     border: none;

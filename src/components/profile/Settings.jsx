@@ -14,6 +14,16 @@ class Settings extends Component {
     croppedImg: "",
   }
 
+  componentWillMount() {
+    console.log(this.props)
+    if(this.props.user.info) {
+      const { firstName, lastName } = this.props.user.info
+
+      this.setState({
+        fullName: `${firstName} ${lastName}`
+      })
+    }
+
   handleUpdate = (e) => {
     e.preventDefault()
     alert('called')

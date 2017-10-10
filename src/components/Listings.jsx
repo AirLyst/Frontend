@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes      from 'prop-types'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 
 
@@ -15,10 +16,11 @@ class Listings extends Component {
     listing: {
       photos: []
     },
+    user: '',
     isLoading: true
   }
+
   componentWillMount() {
-    console.log(this.props)
     const listingID = this.props.match.params[0]
     axios.post('http://localhost:4000/api/listing/id', { _id: listingID })
     .then(res => {
@@ -35,37 +37,48 @@ class Listings extends Component {
           this.state.isLoading ? <Loading /> : (
           <div className="listingPageContainer">
             <h1>{this.state.listing.name}</h1>
+            <h4>listed by: {this.state.user}</h4>
             <hr />
             <div className="listingInfoContainer">
               <span>
                 <h3>Brand</h3>
-                <p>{this.state.listing.brand}</p>
+                <p className='listingTag'>{this.state.listing.brand}</p>
               </span>
               <span>
                 <h3>Price</h3>
-                <p>${this.state.listing.price}</p>
+                <p className='listingTag-price'>${this.state.listing.price}<span className='listingTag-end' /></p>
               </span>
               <span>
                 <h3>Size</h3>
-                <p>{this.state.listing.size}</p>
+                <p className='listingTag'>{this.state.listing.size}</p>
               </span>
               <span>
                 <h3>Condition</h3>
-                <p>{this.state.listing.condition}</p>
+                <p className='listingTag'>{this.state.listing.condition}</p>
               </span>
             </div>
+
+            <div className='sellDescription'>
+              {this.state.listing.description}  
+            </div>            
+
             <h1>Photos & Descriptions</h1>
-            <hr />
-            <div className="listingImageContainer">
+            <div className={this.state.listing.photos.length >= 3 ? "listingImageContainer spbetween" : "listingImageContainer sparound"}>
               {this.state.listing.photos.map((photo, key) => {
                 return (
-                  <ImageCard 
-                    src={photo.image} 
-                    key={key} 
-                    indx={key} 
-                    onDel={this.onDel}
-                    noEdit 
-                  />
+                  <span key={key}>
+                    <ImageCard 
+                      src={photo.image} 
+                      description={photo.description} 
+                      key={key} 
+                      indx={key}
+                      onDel={this.onDel}
+                      noEdit 
+                    />
+                  <div className='descriptionCard'>
+                    {photo.description}
+                  </div>
+                  </span>
                 )
               })}
             </div>

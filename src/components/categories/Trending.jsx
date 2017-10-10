@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 import AnimatedBox  from '../reusable/AnimatedBox.jsx'
 
 import '../styles/Trending.css'
@@ -42,7 +42,6 @@ class Trending extends Component {
                           />
                         </Link>
                         <p>{item.name}</p>
-                        <p style={{color: 'rgb(200,200,200)'}}>${item.price}</p>
                       </div>
                     </div>
                   )
