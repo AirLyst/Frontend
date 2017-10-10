@@ -7,12 +7,13 @@
 }
 
 .profileBubble {
+  display: inline;
   width: 30px;
-  padding: 20px 25px;
+  padding: 15px 25px;
   border-radius: 50%;
-  margin: auto;
   color: white;
   font-weight: 700;
+  text-align: center;
   font-size: 30px;
   background: #ff9966;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to left, #ff5e62, #ff9966);  /* Chrome 10-25, Safari 5.1-6 */
@@ -20,7 +21,40 @@
   -webkit-box-shadow: 2px 1px 20px 0px rgba(0,0,0,0.1);
   -moz-box-shadow: 2px 1px 20px 0px rgba(0,0,0,0.1);
   box-shadow: 2px 1px 20px 0px rgba(0,0,0,0.1);
-  }
+}
+
+.profilePictureBubble {
+  border-radius: 50%;
+  width: 85px;
+  cursor: pointer;
+}
+
+.profilePictureBubble:hover {
+  opacity: 0.8;
+}
+.edit {
+  cursor: pointer;
+}
+.profileBubble.edit:hover {
+  opacity: 0.5;
+}
+
+.profileBubble.small {
+  width: 15px;
+  font-size: 21px;
+  font-weight: 300;
+  padding: 7px 14px;
+}
+
+.picCropper {
+  height: 300px; 
+  width: 300px;
+  margin: auto;
+  animation: fade 1s forwards
+}
+.center {
+  margin: 0 auto;
+}
 
 .profileContainer hr {
   width: 30%;

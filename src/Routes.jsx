@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import Navigation from './components/Navigation.jsx'
 import Home from './components/Home.jsx'
 import Signup from './components/Signup.jsx'
+import Login from './components/Login.jsx'
 import Profile from './components/Profile.jsx'
 import Sell from './components/Sell.jsx'
 import CrashCourse from './components/CrashCourse.jsx'
@@ -49,6 +50,7 @@ class App extends Component {
               <Route exact path="/" component={Home} />
               <Route path="/home" component={Home} />
               <Route path="/signup" component={Signup} />
+              <Route path="/signin" component={Login} />
               <Route path="/profile" component={Profile} />
               <Route path="/sell" component={Sell} />
               <Route path="/crashcourse" component={CrashCourse} />

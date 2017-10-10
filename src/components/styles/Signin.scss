@@ -1,0 +1,38 @@
+.signin-page {
+  display: flex;
+  justify-content: center;
+}
+
+.login {
+display: flex;
+flex-direction: column;
+  input {
+    -webkit-appearance: none;
+    margin: 10px 0;
+    border: .5px #B6B6B6 solid;
+    box-sizing: border-box;
+    outline: none;
+    border: solid 1px #c8c8c8;
+    border-radius: 5px;
+    font-size: 16px;
+    height: 30px;
+    padding: 2px 5px;
+  }
+  button {
+    -webkit-appearance: none;
+    background: none;
+    border: solid 1px #c8c8c8;
+    cursor: pointer;
+    padding: 10px;
+  }
+}
+
+.outsideLogin {
+  display: flex;
+  .facebook {
+    margin: 0 5px 0 0;
+  }
+  .google {
+    margin: 0 0 0 5px;
+  }
+}
