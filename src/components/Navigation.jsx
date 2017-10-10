@@ -21,13 +21,27 @@ class Navigation extends Component {
     login: false,
     category: false,
     dropdown: false,
+    hasPicture: false,
   }
 
   componentWillMount() {
-    const { firstName, lastName } = this.props.user.info
-    if (firstName || lastName) 
-      this.setState({ fullName: `${firstName} ${lastName}`})
+    if (this.props.user.isAuthenticated) {
+      const { firstName, lastName, profile_picture } = this.props.user.info
+      if (firstName || lastName) 
+        this.setState({ fullName: `${firstName} ${lastName}`})
+      if (profile_picture)
+        this.setState({ hasPicture: true })
+    }
   }
+
+  // componentDidUpdate() {
+  //   // console.log(window.pageYOffset)
+  //   document.addEventListener('scroll', () => {
+  //     this.setState({ lastOffset: window.page})
+  //     console.log(window.pageYOffset)
+  //   })
+  // }
+
   toggleMenu = () => {
     this.setState({ dropdown: !this.state.dropdown })
   }
@@ -61,13 +75,15 @@ class Navigation extends Component {
     const notLoggedIn = (
       <span>
         <button onClick={this.toggleSignup} className="navButton">Sign Up</button>
-        <button onClick={this.toggleLogin} className="navButton left">Login</button>
+        <button onClick={this.toggleLogin} className="navButton">Login</button>
       </span>
     )
 
     const loggedIn = (
       <span className="navBubble">
-        <ProfileBubble small/>
+        {this.state.hasPicture 
+          ? <Link to='/profile' style={{textDecoration: 'none'}}><img alt='User Profile' src={this.props.user.info.profile_picture}/> </Link>
+          : <ProfileBubble small/>}
         <p onClick={this.toggleMenu}>{this.state.fullName} <span>&#x2335;</span></p>
         {this.state.dropdown && 
           <ul className="dropdown">

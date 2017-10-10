@@ -41,7 +41,8 @@ class Trending extends Component {
                           className="imgContent"
                           />
                         </Link>
-                        <p>{item.brand}</p>
+                        <p>{item.name}</p>
+                        <p style={{color: 'rgb(200,200,200)'}}>${item.price}</p>
                       </div>
                     </div>
                   )

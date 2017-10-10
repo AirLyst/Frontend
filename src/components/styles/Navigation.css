@@ -23,13 +23,14 @@
   margin: 0px 10px;
 }
 
+
 .navBubble {
   display: inline;
-  text-align: center;
+  text-align: right;
   float: right;
   width: 40%;
   max-width: 250px;
-  margin-top: 0px;
+  margin-top: -18px;
 }
 
 .left {
@@ -38,27 +39,48 @@
 }
 
 .navBubble p {
-  display: inline;
+  display: inline-block;
   font-size: 16px;
   color: rgb(100,100,100);
   padding: 0px 10px;
   cursor: pointer;
+  line-height: 2em;
+  transition: all 2s;
 }
 
 .navBubble span {
   color: rgb(200,200,200);
   font-weight: 700;
 }
+
+.navBubble img {
+  display: inline-block;
+  height: 40px;
+  line-height: 0px;
+  vertical-align: middle;
+  border-radius: 50%;
+  margin-bottom: 5px;
+  transition: all 2s;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+}
+
 .dropdown {
   position: absolute;
   text-align: center;
   list-style: none;
   -webkit-padding-start: 0px;
   border: solid 1px rgb(220,220,220);
+  border-top: none;
   padding: 0px 30px;
-  border-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   margin-left: 90px;
+  margin-top: 2px;
   background-color: white;
+  z-index: -1;
+  animation: fadein 0.5s forwards;
 }
 
 .dropdown li {
@@ -113,6 +135,17 @@
   max-width: 1200px;
   padding: 20px;
   margin: auto;
+}
+
+@media (max-width: 800px) {
+  .navBubble img {
+    width: 30px;
+    height: 30px;
+  }
+  .navBubble p {
+    padding: 5px;
+    font-size: 14px;
+  }
 }
 
 
