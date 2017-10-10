@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import AnimatedBox  from '../reusable/AnimatedBox.jsx'
@@ -13,7 +14,6 @@ class Trending extends Component {
     const quantity = { quantity: 6 }
     axios.post('http://localhost:4000/api/listing/recents', quantity)
     .then(res => {
-      console.log(res.data[1])
       let { recentItems } = this.state
       recentItems = [...recentItems, ...res.data]
       this.setState({ recentItems: recentItems })
@@ -41,7 +41,7 @@ class Trending extends Component {
                           className="imgContent"
                           />
                         </Link>
-                        <p>{item.brand}</p>
+                        <p>{item.name}</p>
                       </div>
                     </div>
                   )

@@ -7,6 +7,7 @@ import FontAwesome from 'react-fontawesome'
 import Dropzone from 'react-dropzone'
 import ImageCard from './ItemImage'
 import Validator from 'validator'
+import Scroll from 'react-scroll'
 
 // Components
 import Loading from './Loading.jsx'
@@ -89,7 +90,7 @@ class Sell extends Component {
         })
       })
     } else {
-      window.scrollTo(0,0)
+      Scroll.animateScroll.scrollToTop()
       this.setState({ errors: errors })
     }
   }
@@ -115,7 +116,6 @@ class Sell extends Component {
       errors.photos = 'At least one photo is required!'
     if(errors.category || errors.title || errors.category || errors.size || errors.title || errors.photos || errors.price || errors.description)
       isValid = false
-    console.log(errors)
     return {
       errors,
       isValid
@@ -275,7 +275,7 @@ class Sell extends Component {
                 </div>
                 <br/>
                 <div className="listingTextarea">
-                  {this.state.errors.description && <ErrorMessage text={this.state.errors.description}/>}
+                  {this.state.errors.description && <label style={{color:'red'}}>{this.state.errors.description}</label>}
                   {!this.state.errors.description && <label>Description</label>}
                   <textArea
                     name="description"
@@ -334,6 +334,7 @@ class Sell extends Component {
                 onClick={this.onSubmit}>
                 Create Listing
               </button>
+              <br/><br/>
             </div>
           </div>
           }

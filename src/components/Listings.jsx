@@ -19,20 +19,15 @@ class Listings extends Component {
     user: '',
     isLoading: true
   }
-  componentWillMount = async () => {
-    const regExp = new RegExp('(?:.*?\\/){2}(.*)', 'g')
-    const listingID = regExp.exec(this.context.router.history.location.pathname)[1]
-    await axios.post('http://localhost:4000/api/listing/id', { _id: listingID })
+
+  componentWillMount() {
+    const listingID = this.props.match.params[0]
+    axios.post('http://localhost:4000/api/listing/id', { _id: listingID })
     .then(res => {
-      console.log(res.data)
       this.setState({ 
         listing: res.data, 
         isLoading: false
       })
-    })
-    await axios.get(`http://localhost:4000/api/user/${this.state.listing.user}/name`)
-    .then(res=> {
-      this.setState({ user: res.data })
     })
   }
   render() {
