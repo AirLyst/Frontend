@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import AnimatedBox  from '../reusable/AnimatedBox.jsx'
 
 import '../styles/Trending.css'
@@ -11,8 +10,7 @@ class Trending extends Component {
     recentItems: []
   }
   componentWillMount() {
-    const quantity = { quantity: 6 }
-    axios.post('http://localhost:4000/api/listing/recents', quantity)
+    axios.get('http://localhost:4000/api/listing/recents/6')
     .then(res => {
       let { recentItems } = this.state
       recentItems = [...recentItems, ...res.data]

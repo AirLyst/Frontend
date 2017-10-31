@@ -23,6 +23,7 @@ class Settings extends Component {
         fullName: `${firstName} ${lastName}`
       })
     }
+  }
 
   handleUpdate = (e) => {
     e.preventDefault()
@@ -38,6 +39,7 @@ class Settings extends Component {
   crop = () => {
     this.setState({ croppedImg: this.refs.cropper.getCroppedCanvas().toDataURL()})
   }
+
   render() {
     return (
       <div className="settingsContainer">

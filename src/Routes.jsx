@@ -22,6 +22,7 @@ import Sell from './components/Sell.jsx'
 import CrashCourse from './components/CrashCourse.jsx'
 import TestComponent from './components/TestComponent.jsx'
 import Listings from './components/Listings.jsx'
+import Chat from './components/profile/Chat.jsx'
 
 // Styles
 
@@ -50,6 +51,7 @@ class App extends Component {
               <Route path="/home" component={Home} />
               <Route path="/signup" component={Signup} />
               <Route path="/profile" component={Profile} />
+              <Route path="/messages/*" component={Chat} />
               <Route path="/sell" component={Sell} />
               <Route path="/crashcourse" component={CrashCourse} />
               <Route path="/test" component={TestComponent} />

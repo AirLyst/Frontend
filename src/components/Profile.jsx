@@ -32,7 +32,7 @@ class Profile extends Component {
           <br />
           <h3>{`${this.props.user.info.firstName} ${this.props.user.info.lastName}`}</h3>
           <hr />
-          <div className="catContainer">
+          <div className="catContainer profile">
             <span className="catContent">
             {categories.map((category, key) => {
               return (
