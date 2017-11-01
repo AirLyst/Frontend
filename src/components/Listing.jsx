@@ -1,18 +1,21 @@
+// Node Modules
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import PropTypes      from 'prop-types'
 import axios from 'axios'
 import FontAwesome from 'react-fontawesome'
-import { connect } from 'react-redux'
 
 // Components
 import ImageCard from './ItemImage.jsx'
 import Loading from './Loading.jsx'
 
+// user Functions
 import { newConversation } from '../actions/message.js'
+import mapStateToProps from '../utils/redux.js'
 
-import './styles/Listings.scss'
+import './styles/Listing.scss'
 
-class Listings extends Component {
+class Listing extends Component {
   state = {
     listing: {
       photos: []
@@ -20,14 +23,22 @@ class Listings extends Component {
     isLoading: true,
     message: '',
     initChat: false,
-    viewingSelf: false
+    viewingSelf: false,
+    error: {
+      request: null
+    }
   }
 
+  /**
+   * Get the listing ID from the URL then
+   * fetch the listing and apply to state.
+   * If the current viewer made the post,
+   * set viewingSelf to true
+   */
   componentWillMount() {
     const listingID = this.props.match.params[0]
     axios.get(`http://localhost:4000/api/listing/${listingID}`)
     .then(res => {
-      console.log(res)
       this.setState({ 
         listing: res.data, 
         isLoading: false
@@ -36,7 +47,7 @@ class Listings extends Component {
         this.setState({ viewingSelf: true })
     })
     .catch(err => {
-      console.log(err)
+      this.setState({ error: { request: 'Failed to get listing.'} })
     })
   }
 
@@ -144,14 +155,8 @@ class Listings extends Component {
   }
 }
 
-Listings.contextTypes = {
+Listing.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
-function mapStateToProps(state){
-  return {
-    user: state.user
-  }
-}
-
-export default connect(mapStateToProps, { newConversation })(Listings)
+export default connect(mapStateToProps, { newConversation })(Listing)

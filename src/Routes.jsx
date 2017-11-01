@@ -21,7 +21,7 @@ import Profile from './components/Profile.jsx'
 import Sell from './components/Sell.jsx'
 import CrashCourse from './components/CrashCourse.jsx'
 import TestComponent from './components/TestComponent.jsx'
-import Listings from './components/Listings.jsx'
+import Listing from './components/Listing.jsx'
 import Chat from './components/profile/Chat.jsx'
 
 // Styles
@@ -55,7 +55,7 @@ class App extends Component {
               <Route path="/sell" component={Sell} />
               <Route path="/crashcourse" component={CrashCourse} />
               <Route path="/test" component={TestComponent} />
-              <Route path="/listings/*" component={Listings} />
+              <Route path="/listing/*" component={Listing} />
               <Route path="/*" render={() => <h1 style={{textAlign: 'center'}}>PAGE NOT FOUND</h1>} />
             </Switch>
           </div>

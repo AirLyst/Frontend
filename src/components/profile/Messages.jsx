@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom'
 import Chat from './Chat.jsx'
 
 // utils
-// import socket from '../../utils/socket.js'
 import { newConversation, getConversations } from '../../actions/message'
+import mapStateToProps from '../../utils/redux.js'
 
 // Styles
 import './styles/Messages.scss'
@@ -21,34 +21,10 @@ class Messages extends Component {
     currentConversation: null
   }
 
-  componentDidMount = () => {
-
-  }
-
   componentWillMount = () => {
     this.props.getConversations(this.props.user.info.id)
     .then(res => {
       this.setState({ conversations: res.data.conversations })
-    })
-  }
-  
-  
-  newChat = e => {
-    e.preventDefault()
-    const recipient = '59b800c25b0540359072c78c'
-    const { firstName, lastName } = this.props.user.info
-    const conversation = {
-      user: this.props.user.info.id,
-      recipient,
-      message: '2 New Test Message to Alex Cushing 2',
-      displayName: `${firstName} ${lastName}`
-    }
-    this.props.newConversation(conversation)
-    .then(res => {
-      console.log(res)
-    })
-    .catch(err => {
-      console.log(err)
     })
   }
 
@@ -60,7 +36,6 @@ class Messages extends Component {
   render() {
     return (
       <div>
-      <div onClick={this.newChat}> Send Test </div>
       {this.state.showChat 
         ? <Chat 
           conversation={this.state.currentConversation} 
@@ -95,12 +70,6 @@ class Messages extends Component {
         <br/>
       </div>
     );
-  }
-}
-
-function mapStateToProps(state){
-  return {
-    user: state.user
   }
 }
 

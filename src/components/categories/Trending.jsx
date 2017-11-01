@@ -32,7 +32,7 @@ class Trending extends Component {
                   return (
                     <div key={key} className="imgContainer">
                       <div className="imgPreview no-hover">
-                        <Link to={`/listings/${item._id}`}>
+                        <Link to={`/listing/${item._id}`}>
                         <img
                           src={item.photos[0].image || null} 
                           alt={item.brand}
