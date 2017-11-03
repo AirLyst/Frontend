@@ -1,5 +1,6 @@
 // Node Modules
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -15,11 +16,14 @@ import './styles/Chat.scss'
 class Chat extends Component {
   state = {
     messages: [],
-    message: '',
+    body: '',
     otherUser: {
       firstName: '',
       lastName: '',
       profile_picture: ''
+    },
+    listing: {
+      photos: [{image: ''}]
     },
     conversationId: ''
   }
@@ -46,7 +50,8 @@ class Chat extends Component {
         else
           return { sender: res.data.user.firstName , body: message.body }
       })
-      this.setState({ messages, otherUser: res.data.user })
+      this.setState({ messages, otherUser: res.data.user, listing: res.data.listing })
+      this.scrollToBottom()
     })
     .catch(err => console.log(err))
   }
@@ -65,6 +70,7 @@ class Chat extends Component {
       this.setState({ 
         messages: [...this.state.messages, parsedMessage]
       })
+      this.scrollToBottom()
     })
   }
 
@@ -87,16 +93,16 @@ class Chat extends Component {
 
   /**
    * Check for invalid strings, empty strings here.
-   * Save the message to the database first, then
-   * we'll emit the message to the current chanell
+   * Save the message body to the database first, then
+   * we'll emit the message to the current channel
    */
   sendMessage = e => {
     e.preventDefault()
-    const { message,conversationId } = this.state
-    if (message !== '') {
+    const { body, conversationId } = this.state
+    if (body !== '') {
       const data = {
         conversationId,
-        message,
+        body,
         author: this.props.user.info.id
       }
       
@@ -104,46 +110,71 @@ class Chat extends Component {
       .then(res => {
         socket.emit('new-message', {
           sender: this.props.user.info.id, 
-          message,
+          body,
           conversationId
         })
-        this.setState({ message: ''})  
+        this.setState({ body: ''})  
       })
     }
   }
 
+scrollToBottom = () => {
+  const node = ReactDOM.findDOMNode(this.messagesEnd)
+  node.scrollIntoView({ behavior: 'smooth' })
+  console.log('scrolling')
+}
+
   render() {
     return (
-      <div className='chatContainer'>
-        <Link to='/profile/messages' className='leaveChat' onClick={this.props.toggleChat}>
-          <FontAwesome name='arrow-left' style={{color: '#F29B70'}} />
-          <p> BACK</p>
+      <div className='conversationContainer'>
+      <br/>
+      <Link to='/profile/messages' className='leaveChat' onClick={this.props.toggleChat}>
+        <FontAwesome name='arrow-left' style={{color: 'white'}} />
+      </Link>
+      <br/>
+      <div className='conversationListing'>
+        <Link to={`/listing/${this.state.listing._id}`} className='conversationListingLink'>
+          <img src={this.state.listing.photos[0].image} alt=''/>  
+          <h4>{this.state.listing.name}</h4>
         </Link>
-        <div className='chatContent'>
-          <div className='chatHeader'>
-            <img src={this.state.otherUser.profile_picture} alt='profile'/>
-            <h3>{this.state.otherUser.firstName} {this.state.otherUser.lastName}</h3>
+        <span>
+          <h4><FontAwesome name='asterisk'/> Send Offer</h4>
+        </span>
+        <span>
+          <h4><FontAwesome name='shopping-cart'/> Request to Buy for ${this.state.listing.price}</h4>
+        </span>
+      </div>
+      <br/>
+      <div className='chatContainer'>
+          <div className='chatContent'>
+            <div className='chatHeader'>
+              <img src={this.state.otherUser.profile_picture} alt='profile'/>
+              <h3>{this.state.otherUser.firstName} {this.state.otherUser.lastName}</h3>
+            </div>
+            <ul className='chatMessages'>
+              {
+                this.state.messages.map((message, key) => {
+                  return (
+                    <li
+                      className={message.sender === 'You' ? 'messageRight' : 'messageLeft'}
+                      key={key}>
+                      {message.body}
+                    </li>
+                  )
+                })
+              }
+              <div style={{ float:"left", clear: "both" }} ref={(e) => { this.messagesEnd = e }}>
+              </div>
+            </ul>
+            <form className="chatInput" onSubmit={this.sendMessage}>
+              <input
+                type='text'
+                onChange={this.onChange}
+                value={this.state.body}
+                name='body'/>
+              <FontAwesome name='paper-plane' onClick={this.sendMessage} className='sendIcon'/>
+            </form>
           </div>
-          <ul className='chatMessages'>
-            {
-              this.state.messages.map((message, key) => {
-                return (
-                  <li
-                    className={message.sender === 'You' ? 'right' : 'left'}
-                    key={key}>
-                    {message.body}
-                  </li>
-                )
-              })
-            }
-          </ul>
-          <form className="chatInput" onSubmit={this.sendMessage}>
-            <input
-              onChange={this.onChange}
-              value={this.state.message}
-              name='message'/>
-            <FontAwesome name='paper-plane' onClick={this.sendMessage}/>
-          </form>
         </div>
       </div>
     )

@@ -1,12 +1,41 @@
-.chatContainer {
-  width: 80%;
+.conversationContainer {
+  width: 70%;
   max-width: 1000px;
   margin: auto;
-  border: dotted 1px;
+}
+
+.conversationListing {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: solid 1px rgb(230,230,230);
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.conversationListing img {
+  width: 60px;
+  vertical-align: middle;
+}
+
+.conversationListingLink {
+  text-decoration: none;
+  color: black;
+}
+
+.conversationListingLink h4 {
+  display: inline;
+  padding-left: 5px;
+}
+
+.chatContainer {
+  width: 100%;
+  margin: auto;
+  border: solid 1px rgb(230,230,230);
+  border-radius: 5px;
+  padding: 20px;
   text-align: center;
-  
-  // TEMPORARY
-  margin-top: 100px;
+  height: calc(53vh);
 }
 
 .leaveChat {
@@ -14,6 +43,11 @@
   cursor: pointer;
   text-align: left;
   font-size: 16px;
+  text-decoration: none;
+  padding: 12px 15px;
+  border-radius: 50%;
+  background-color: rgb(201, 201, 201);
+  margin: auto
 }
 
 .leaveChat p {
@@ -25,7 +59,6 @@
 }
 .chatHeader img {
   display: inline;
-  width: 10%;
   max-width: 50px;
   border: solid 1px rgb(220,220,220);
   border-radius: 50%;
@@ -35,33 +68,79 @@
   display: block;
   line-height: 0px;
 }
+.chatMessages {
+  border: solid;
+  height: calc(40vh);
+  overflow: scroll;
+  border: solid 1px rgb(240,240,240);
+  padding: 0px 1em;
+  margin: 0;
+}
 .chatMessages ul {
-  -webkit-columns: 2;
-  -moz-columns: 2;
-  columns: 2;
+  list-style-type: none;
 }
 
 .chatMessages li {
-  display: table;
-  padding: 5px 8px;
+  display: block;
+  padding: 5px;
   border-radius: 5px;
   margin: 10px 0px;
+  clear: both;
+  max-width: 50%;
+
 }
 
-.left {
-  background-color: grey;
+.messageLeft {
+  background-color: rgb(237, 237, 237);
   color: black;
+  float: left;
 }
 
-.right {
+.messageRight {
   background-color: rgb(50, 121, 244);
   color: white;
-  padding: 5px 10px;
+  float: right;
+}
+.chatInput {
+  display: flex;
+  margin-top: 5px;
+  justify-content: space-between;
+}
+.chatInput input {
+  font-size: 14px;
+  margin: 5px 0px;
+  padding: 2px;
+  width: 95%;
+  border: solid 1px rgb(220,220,220);
 }
 
+.sendIcon {
+  align-content: middle;
+  color: rgb(150,150,150);
+  padding: 8px 2px;
+}
 @media (max-width: 800px) {
-  .chatContainer {
-    width: 90%;
+  .conversationContainer {
+    width: 100%;
     max-width: none;
+    padding: none;
+  }
+  .conversationListing {
+    display: block;
+    text-align: center;
+    border: none;
+    line-height: 0;
+  }
+  .conversationListing img {
+    width: 30px;
+  }
+  .chatContainer {
+    border: none;
+    padding: none;
+  }
+
+  .chatMessages {
+    border: none;
+    padding: 0px;
   }
 }

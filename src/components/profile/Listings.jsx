@@ -1,52 +1,60 @@
+// Node Modules
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
-import axios from 'axios'
 import FontAwesome from 'react-fontawesome'
+import Scroll from 'react-scroll'
+import { Link } from 'react-router-dom'
+import { RotatingPlane } from 'better-react-spinkit'
 
+// Actions/Utils
 import mapStateToprops from '../../utils/redux.js'
+import { getUserListings } from '../../actions/listing.js'
+
+// Styles
+import './styles/Listings.scss'
 
 class Listings extends Component {
   state = {
     listings: [],
     noListings: false,
-    firstId: 'first',
-    lastId: 'last',
-    allowNext: true,
-    allowPrevious: false,
+    pivot: null,
     isLoading: false,
     errors: {
       request: null
-    },
-    pageNumber: 0
+    }
   }
 
   componentWillMount = () => {
     this.fetchListings()
   }
   
+  componentDidMount = () => {
+    window.addEventListener('scroll', this.handleScroll)
+  }
 
-  fetchListings = direction => {
+  componentWillUnmount = () => {
+    window.removeEventListener('scroll', this.handleScroll)   
+  }
+  
+
+  fetchListings = () => {
+    console.log('fetching')
     this.setState({ isLoading: true })
-    let pivot
-    direction ? (pivot = direction) : (pivot = 'null/null')
-    pivot === 'next' && (pivot = `${this.state.lastId}/next`) 
-    pivot === 'previous' && (pivot = `${this.state.firstId}/previous`)
-
-    axios.get(`/api/listing/user/${this.props.user.info.id}/${pivot}`)
+    const userId = this.props.user.info.id
+    const { pivot } = this.state
+    this.props.getUserListings(userId, pivot)
     .then(res => {
-      console.log(res.data)
       this.setState({ isLoading: false })
       if(res.data.length > 0) {
-        const lastId = res.data[res.data.length - 1]._id
-        const firstId = res.data[0]._id
-        console.log(`first: ${firstId}, last: ${lastId}`)
-        this.setState({ listings: res.data, firstId, lastId })        
+        const pivot = res.data[(res.data.length - 1)]._id
+        const listings = [...this.state.listings, ...res.data]
+        this.setState({ pivot, listings })
       }
       else {
-        if(!direction && res.data.length === 0)
-          this.setState({ allowNext: false, allowPrevious: false, noListings: true })
-        if(res.data.length < 10)
-          this.setState({ allowNext: false })
+        if(res.data.length < 10){
+          this.setState({ noListings: true })
+          window.removeEventListener('scroll', this.handleScroll)          
+        }
       }
     })
     .catch(err => {
@@ -54,47 +62,48 @@ class Listings extends Component {
     })
   }
 
-  previousPage = () => {
-    const pageNumber = this.state.pageNumber - 1
-    if(pageNumber === 0)
-      this.setState({ pageNumber, allowPrevious: false })
-    this.setState({ pageNumber })
-    this.fetchListings('previous')
+  /**
+   * http://blog.sodhanalibrary.com/2016/08/detect-when-user-scrolls-to-bottom-of.html#.WftmORNSyL4
+   */
+  handleScroll = () => {
+    const windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight
+    const body = document.body
+    const html = document.documentElement
+    const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight)
+    const windowBottom = windowHeight + window.pageYOffset
+    windowBottom >= docHeight && this.fetchListings()
   }
 
-  nextPage = () => {
-    const pageNumber = this.state.pageNumber + 1
-    this.setState({ pageNumber, allowPrevious: true })
-    this.fetchListings('next')
+  scrollUp = () => {
+    Scroll.animateScroll.scrollToTop()
   }
-  
+
   render() {
     return (
       <div className='userListingContainer'>
-      <h1>Page Number: {this.state.pageNumber} </h1>
-      {this.state.allowPrevious &&
-        <div>
-          <FontAwesome name='arrow-left' onClick={this.previousPage} />Previous
-        </div>
-      }
-      {this.state.allowNext &&
-        <div>
-          <FontAwesome name='arrow-right' onClick={this.nextPage} />Next
-        </div>
-      }
-      {this.state.noListings && <h2>You don't have anything for sale ):</h2>}
+        <h3>These are your active listings</h3>
         <div className='userListings'>
           {this.state.listings.map((listing, key) => {
             return  (
-              <div key={key} className='userListing'>
-                {listing.photos.length > 0 && <img src={listing.photos[0].image} alt=''/> }
-                <p>{listing.name}</p>
+              <div className='userListing'>
+                <Link to={`/listing/${listing._id}`} key={key} className='linkStyle'>
+                  <img src={listing.photos.length > 0 ? listing.photos[0].image : 'http://via.placeholder.com/100x100' } alt='' />
+                  <p>{listing.name}</p>
+                </Link>
               </div>
             )
           })}
         </div>
+        {this.state.isLoading && <span className='listingLoading'><RotatingPlane size='50' color='#F29B70'/></span>}
+        {this.state.noListings &&
+          <div>  
+            <h2>That's all you got 🅱️</h2>
+            <FontAwesome name='arrow-up' onClick={this.scrollUp}/>
+            <br/><br/><br/><br/>
+          </div>
+        }
       </div>
     )
   }
 }
-export default connect(mapStateToprops)(Listings)
+export default connect(mapStateToprops,{ getUserListings })(Listings)

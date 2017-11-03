@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import PropTypes      from 'prop-types'
-import axios from 'axios'
 import FontAwesome from 'react-fontawesome'
 
 // Components
@@ -11,6 +10,7 @@ import Loading from './Loading.jsx'
 
 // user Functions
 import { newConversation } from '../actions/message.js'
+import { getListingById } from '../actions/listing.js'
 import mapStateToProps from '../utils/redux.js'
 
 import './styles/Listing.scss'
@@ -36,8 +36,8 @@ class Listing extends Component {
    * set viewingSelf to true
    */
   componentWillMount() {
-    const listingID = this.props.match.params[0]
-    axios.get(`http://localhost:4000/api/listing/${listingID}`)
+    const listingId = this.props.match.params[0]
+    this.props.getListingById(listingId)
     .then(res => {
       this.setState({ 
         listing: res.data, 
@@ -59,15 +59,15 @@ class Listing extends Component {
     e.preventDefault()
     const recipient = this.state.listing.user._id
     const user = this.props.user.info.id
+    const listingId = this.props.match.params[0]
     const { message } = this.state
-    console.log({ user, recipient, message })
     if(message !== '') {
-      this.props.newConversation({ user, recipient, message })
+      this.props.newConversation({ user, recipient, message, listingId })
       .then(res => {
-        // console.log(`/messages/${res.data.conversationId}`)
         this.context.router.history.push(`/messages/${res.data.conversationId}`)
       })
       .catch(err => {
+        console.log(err)
         // failed to start conversation
       })
     }
@@ -75,6 +75,10 @@ class Listing extends Component {
 
   toggleMessage = () => {
     this.setState({ initChat: !this.state.initChat })
+  }
+
+  toggleLike = () => {
+
   }
 
   render() {
@@ -108,26 +112,35 @@ class Listing extends Component {
               {this.state.listing.description}  
             </div>
 
-            <div className='sellerInfo'>
-              <h1> Seller</h1>
-              <hr/>
-              {
-                !this.state.viewingSelf &&
-                <div>
-                  <h3 onClick={ this.toggleMessage }>
-                    <FontAwesome name='envelope-o' />
-                  </h3>
-                  {
-                    this.state.initChat && 
-                      <form onSubmit={this.startConversation}>
-                        <input type='text' value={this.message} onChange={this.onChange} name='message'/>
-                      </form>
-                  }
-                </div>
+            {
+              !this.state.viewingSelf &&
+              <div className='sellerInfo'>
+                <h1>Interact</h1>
+                <hr/>
+                <span className='sellerInfoContent'>              
+                  <span>
+                    <h4 onClick={ this.toggleMessage }>
+                      <FontAwesome name='envelope-o' /> Message Seller
+                    </h4>
+                  </span>  
+                    {
+                      this.state.initChat && 
+                        <form onSubmit={this.startConversation}>
+                          <input type='text' value={this.message} onChange={this.onChange} name='message'/>
+                        </form>
+                    }
+                  <span>
+                    <h4 onClick={ this.toggleLike }>
+                      <FontAwesome name='star-o' /> Save Listing
+                    </h4>
+                  </span>
+                </span>
+              </div>
               }
 
-            </div>
+            
             <h1>Photos & Descriptions</h1>
+            <hr />
             <div className={this.state.listing.photos.length >= 3 ? "listingImageContainer spbetween" : "listingImageContainer sparound"}>
               {this.state.listing.photos.map((photo, key) => {
                 return (
@@ -159,4 +172,4 @@ Listing.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
-export default connect(mapStateToProps, { newConversation })(Listing)
+export default connect(mapStateToProps, { newConversation, getListingById })(Listing)

@@ -1,0 +1,54 @@
+.userListings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.userListing {
+  width: 30%;
+}
+
+.linkStyle {
+  color: black;
+  text-decoration: none;
+}
+
+.userListing img {
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  transition: all 0.5s;
+}
+
+.userListing img:hover {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+}
+
+.listingLoading {
+  display: flex;
+  justify-content: center;
+}
+@media (max-width: 800px) {
+  .userListings {
+    display: block;
+    text-align: center;
+    width: 100%;
+    margin: auto;
+  }
+
+  .userListing {
+    width: 80%;
+    margin: auto;
+  }
+  .userListing img {
+    object-fit: cover;
+    width: 90%;
+    height: initial;
+    transition: all 0.5s;
+  }
+}
