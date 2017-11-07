@@ -66,7 +66,7 @@
 .cardContainer {
   width: 80%;
   margin: auto;
-  margin-top: 3%;
+  margin-top: 10px;
   display: block;
   justify-content: space-around;
   flex-wrap: wrap;
@@ -85,5 +85,12 @@
   border: solid 1px rgb(230, 230, 230);
   border-top: 0px;
   width: 90%;
+}
+
+@media (max-width: 800px) {
+  .cardContainer {
+    width: 100%;
+    padding: none;
+  }
 }
 

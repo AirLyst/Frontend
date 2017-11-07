@@ -1,5 +1,3 @@
-
-
 const sizing = {
   oneSize: [
     { value: "one size", label: 'One Size' }

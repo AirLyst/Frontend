@@ -21,16 +21,21 @@ export class CropPicture extends Component {
     profilePicture: false,
     pictureURL: '',
     editMode: false,
-    preview: null
+    preview: null,
+    cropperStyle: {height: 300, width: 300, margin: '20px auto'}
   }
 
   componentWillMount() {
     const { profile_picture } = this.props.user.info
-    console.log(profile_picture)
     if(profile_picture !== '')
+      this.setState({  profilePicture: true, pictureURL: profile_picture })
+    if (window.innerWidth < 800)
       this.setState({ 
-        profilePicture: true,
-        pictureURL: profile_picture
+        cropperStyle: {
+          width: '100%',
+          height: '300px',
+          margin: 'auto'
+        }
       })
   }
 
@@ -78,7 +83,7 @@ export class CropPicture extends Component {
             <Cropper
             ref='cropper'
             src={this.state.profilePicture}
-            style={{height: 300, width: 300, margin: '20px auto'}}
+            style={this.state.cropperStyle}
             aspectRatio={9 / 9}
             guides={false}
             />

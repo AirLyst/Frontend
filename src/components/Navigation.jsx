@@ -22,6 +22,7 @@ class Navigation extends Component {
     category: false,
     dropdown: false,
     hasPicture: false,
+    dropdownStyle: "dropdown"
   }
 
   componentWillMount() {
@@ -34,16 +35,34 @@ class Navigation extends Component {
     }
   }
 
-  // componentDidUpdate() {
-  //   // console.log(window.pageYOffset)
-  //   document.addEventListener('scroll', () => {
-  //     this.setState({ lastOffset: window.page})
-  //     console.log(window.pageYOffset)
-  //   })
-  // }
+  componentDidMount() {
+    document.addEventListener('click', this.handleClickOutside, true)
+  }
 
-  toggleMenu = () => {
-    this.setState({ dropdown: !this.state.dropdown })
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside, true)
+  }
+
+  handleClickOutside = event => {
+    const { dropdown } = this.state
+    if (dropdown && !this.node.contains(event.target)){
+      this.setState({ dropdownStyle: "dropdown leave" })
+      setTimeout(() => 
+        { this.setState({ dropdown: false, dropdownStyle: "dropdown" }) }
+      ,500)
+    }
+  }
+
+  toggleMenu = event => {
+    const { dropdown } = this.state
+    if(dropdown){
+      this.setState({ dropdownStyle: "dropdown leave" })
+      setTimeout(() => 
+        { this.setState({ dropdown: false, dropdownStyle: "dropdown" }) }
+      ,500)
+    }
+    else
+      this.setState({ dropdown: true })
   }
 
   toggleSignup = () => {
@@ -84,9 +103,9 @@ class Navigation extends Component {
         {this.state.hasPicture 
           ? <Link to='/profile' style={{textDecoration: 'none'}}><img alt='User Profile' src={this.props.user.info.profile_picture}/> </Link>
           : <ProfileBubble small/>}
-        <p onClick={this.toggleMenu}>{this.state.fullName} <span>&#x2335;</span></p>
+        <p onClick={this.toggleMenu} ref={(ref) => { this.node = ref }}>{this.state.fullName} <span>&#x2335;</span></p>
         {this.state.dropdown && 
-          <ul className="dropdown">
+          <ul className={this.state.dropdownStyle}>
             <li><Link to="/sell" className="dropdownLink" onClick={this.toggleMenu}>Sell</Link></li>
             <li><Link to={`/profile`} className="dropdownLink" onClick={this.toggleMenu}>Profile</Link></li>
             <li><Link to="/" className="dropdownLink" onClick={this.logout}>Logout</Link></li>
@@ -100,7 +119,7 @@ class Navigation extends Component {
         <div className="navOntop">
           <div className="navContainer">
             <div className="navContent">
-              <Link to="/" id="navLogo" onClick={this.closeModal}>GEARHUB</Link>
+              <Link to="/" id="navLogo" onClick={this.closeModal}>AIRLYST</Link>
               {this.props.user.isAuthenticated ? loggedIn : notLoggedIn}
               {/* { this.state.signup && <SignupModal toggle={this.state.signup} close={this.closeModal}/> } */}
               {/* { this.state.login && <Login toggle={this.state.login} close={this.closeModal}/> } */}
@@ -124,5 +143,3 @@ function mapStateToProps(state){
 }
 
 export default withRouter(connect(mapStateToProps, { logout })(Navigation))
-
-/*         */

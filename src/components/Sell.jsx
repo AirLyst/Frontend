@@ -14,7 +14,7 @@ import Loading from './Loading.jsx'
 import ErrorMessage from './ErrorMessage.jsx'
 
 // Actions
-import { sell } from '../actions/sell'
+import { listItem } from '../actions/listing'
 
 // CSS, react-select CSS
 import 'react-select/dist/react-select.css';
@@ -76,7 +76,7 @@ class Sell extends Component {
         userId: this.props.user.info.id
       }
 
-      this.props.sell(sellData)
+      this.props.listItem(sellData)
       .then(data => {
         localStorage.removeItem('cache-sell')
         this.context.router.history.push('/')
@@ -353,6 +353,6 @@ Sell.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
-export default withRouter(connect(mapStateToProps, { sell })(Sell))
+export default withRouter(connect(mapStateToProps, { listItem })(Sell))
 
 
