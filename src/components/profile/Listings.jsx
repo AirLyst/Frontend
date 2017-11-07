@@ -38,7 +38,6 @@ class Listings extends Component {
   
 
   fetchListings = () => {
-    console.log('fetching')
     this.setState({ isLoading: true })
     const userId = this.props.user.info.id
     const { pivot } = this.state
@@ -85,8 +84,8 @@ class Listings extends Component {
         <div className='userListings'>
           {this.state.listings.map((listing, key) => {
             return  (
-              <div className='userListing'>
-                <Link to={`/listing/${listing._id}`} key={key} className='linkStyle'>
+              <div className='userListing' key={key}>
+                <Link to={`/listing/${listing._id}`} className='linkStyle'>
                   <img src={listing.photos.length > 0 ? listing.photos[0].image : 'http://via.placeholder.com/100x100' } alt='' />
                   <p>{listing.name}</p>
                 </Link>
@@ -94,7 +93,7 @@ class Listings extends Component {
             )
           })}
         </div>
-        {this.state.isLoading && <span className='listingLoading'><RotatingPlane size='50' color='#F29B70'/></span>}
+        {this.state.isLoading && <span className='listingLoading'><RotatingPlane size={50} color='#F29B70'/></span>}
         {this.state.noListings &&
           <div>  
             <h2>That's all you got 🅱️</h2>
