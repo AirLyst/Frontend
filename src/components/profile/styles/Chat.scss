@@ -110,8 +110,10 @@
   font-size: 14px;
   margin: 5px 0px;
   padding: 2px;
-  width: 95%;
-  border: solid 1px rgb(220,220,220);
+  width: 90%;
+  padding: 5px;
+  border: solid 1px rgb(240,240,240);
+  text-align: right;
 }
 
 .sendIcon {
@@ -127,20 +129,22 @@
   }
   .conversationListing {
     display: block;
-    text-align: center;
+    text-align: left;
     border: none;
     line-height: 0;
+    padding: 0px;
+    padding-left: 1.5em;
   }
   .conversationListing img {
     width: 30px;
   }
   .chatContainer {
     border: none;
-    padding: none;
+    padding: 0;
   }
 
   .chatMessages {
     border: none;
-    padding: 0px;
+    padding: 0px 10px;
   }
 }

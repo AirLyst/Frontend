@@ -171,6 +171,7 @@ scrollToBottom = () => {
                 type='text'
                 onChange={this.onChange}
                 value={this.state.body}
+                placeholder='Message'
                 name='body'/>
               <FontAwesome name='paper-plane' onClick={this.sendMessage} className='sendIcon'/>
             </form>
