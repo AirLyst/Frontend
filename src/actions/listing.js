@@ -32,7 +32,7 @@ export function getListingById(listingId) {
  */
 export function getUserListings(userId, pivot) {
   return dispatch => {
-    return axios.get(`/api/listing/user/${userId}/${pivot}`)
+    return axios.get(`http://localhost:4000/api/listing/user/${userId}/${pivot}`)
   }
 }
 
@@ -42,6 +42,6 @@ export function getUserListings(userId, pivot) {
  */
 export function likeListing(data) {
   return dispatch => {
-    return axios.post('/api/listing/like', data)
+    return axios.post('http://localhost:4000/api/listing/like', data)
   }
 }
