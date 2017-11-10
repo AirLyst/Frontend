@@ -7,7 +7,6 @@
 .conversationListing {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   border: solid 1px rgb(230,230,230);
   border-radius: 5px;
   padding: 20px;
@@ -29,49 +28,33 @@
 }
 
 .chatContainer {
-  width: 100%;
   margin: auto;
   border: solid 1px rgb(230,230,230);
   border-radius: 5px;
   padding: 20px;
   text-align: center;
-  height: calc(53vh);
+  height: calc(63vh);
 }
 
-.leaveChat {
-  display: table;
-  cursor: pointer;
-  text-align: left;
-  font-size: 16px;
-  text-decoration: none;
-  padding: 12px 15px;
-  border-radius: 50%;
-  background-color: rgb(201, 201, 201);
-  margin: auto
+
+.chatTop-btn {
+  top: 10px;
+  left: 10px;
+  span {
+    color: rgb(150, 150, 150);  
+  }
 }
 
-.leaveChat p {
-  display: inline;
-  letter-spacing: 1px;
-}
 
-.chatHeader {
-}
-.chatHeader img {
-  display: inline;
-  max-width: 50px;
-  border: solid 1px rgb(220,220,220);
-  border-radius: 50%;
-}
-
-.chatHeader h3 {
-  display: block;
-  line-height: 0px;
+.chatTop{
+  display: flex;
+  justify-content: space-between;
 }
 .chatMessages {
   border: solid;
-  height: calc(40vh);
-  overflow: scroll;
+  height: calc(60vh);
+  overflow-x: hidden;
+  overflow-y: auto;
   border: solid 1px rgb(240,240,240);
   padding: 0px 1em;
   margin: 0;
@@ -82,12 +65,19 @@
 
 .chatMessages li {
   display: block;
-  padding: 5px;
-  border-radius: 5px;
-  margin: 10px 0px;
+  padding: 7px;
+  border-radius: 7px;
+  margin: 2px 0px;
   clear: both;
   max-width: 50%;
+  &:last-child {
+    margin-bottom: 10px;
+  }
+}
 
+.chatContent {
+  display: flex;
+  flex-direction: column;
 }
 
 .messageLeft {
@@ -100,6 +90,7 @@
   background-color: rgb(50, 121, 244);
   color: white;
   float: right;
+  text-align: left;
 }
 .chatInput {
   display: flex;
@@ -113,7 +104,7 @@
   width: 90%;
   padding: 5px;
   border: solid 1px rgb(240,240,240);
-  text-align: right;
+  text-align: left;
 }
 
 .sendIcon {
@@ -146,5 +137,7 @@
   .chatMessages {
     border: none;
     padding: 0px 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 }

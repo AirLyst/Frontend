@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 // User Functions
+import { getOpen, closeChat, addChat } from '../../actions/chat.js'
 import { getChat, sendMessage } from '../../actions/message.js'
 import socket from '../../utils/socket.js'
 import mapStateToProps from '../../utils/redux.js'
@@ -25,7 +26,10 @@ class Chat extends Component {
     listing: {
       photos: [{image: ''}]
     },
-    conversationId: ''
+    conversationId: '',
+    isMin: false,
+    redirect: false,
+    bottomChats: {}
   }
 
   /**
@@ -37,10 +41,10 @@ class Chat extends Component {
   componentWillMount = () => {
     const conversationId = this.props.match.params[0]
     const _id = this.props.user.info.id
-
     // Set conversationId because componentDidMount and other
     // functions depends on this variable
-    this.setState({ conversationId })
+    let bottomChats = this.props.getOpen()
+    this.setState({ conversationId, isMin: false, bottomChats })
     this.props.getChat({conversationId, _id})
     .then(res => {
       // Parse the messages to differentiate who sent the message
@@ -61,6 +65,7 @@ class Chat extends Component {
    * check if the current user sent the new message.
    */
   componentDidMount = () => {
+    this.removeFromLocalStorage()
     const { conversationId } = this.state
     socket.emit('join-conversation', conversationId)
     socket.on('refresh-messages', message => {
@@ -89,6 +94,19 @@ class Chat extends Component {
    */
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value})
+  }
+
+  minChat = () => {
+    this.props.addChat(this.state.conversationId)
+    let bottomChats = this.props.getOpen()
+    console.log(bottomChats)
+    this.setState({ isMin: true, redirect: true, bottomChats })
+  }
+
+  removeFromLocalStorage = () => {
+    this.props.closeChat(this.state.conversationId)
+    let bottomChats = this.props.getOpen()
+    this.setState({ bottomChats })
   }
 
   /**
@@ -124,12 +142,17 @@ scrollToBottom = () => {
 }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect push to="/" />;
+    }
     return (
       <div className='conversationContainer'>
       <br/>
-      <Link to='/profile/messages' className='leaveChat' onClick={this.props.toggleChat}>
-        <FontAwesome name='arrow-left' style={{color: 'white'}} />
-      </Link>
+        <span className="chatTop">
+          <Link to='/profile/messages' className='chatTop-btn' onClick={this.props.toggleChat}><FontAwesome name='arrow-left'/></Link>
+          <span className="headerName">conversation with {this.state.otherUser.firstName} {this.state.otherUser.lastName}</span>
+          <span className='chatTop-btn' onClick={this.minChat}><FontAwesome name='window-minimize'/></span>
+        </span>
       <br/>
       <div className='conversationListing'>
         <Link to={`/listing/${this.state.listing._id}`} className='conversationListingLink'>
@@ -146,10 +169,6 @@ scrollToBottom = () => {
       <br/>
       <div className='chatContainer'>
           <div className='chatContent'>
-            <div className='chatHeader'>
-              <img src={this.state.otherUser.profile_picture} alt='profile'/>
-              <h3>{this.state.otherUser.firstName} {this.state.otherUser.lastName}</h3>
-            </div>
             <ul className='chatMessages'>
               {
                 this.state.messages.map((message, key) => {
@@ -181,4 +200,5 @@ scrollToBottom = () => {
   }
 }
 
-export default connect(mapStateToProps, { getChat, sendMessage })(Chat)
+
+export default connect(mapStateToProps, { getChat, sendMessage, getOpen, closeChat, addChat })(Chat)

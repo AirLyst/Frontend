@@ -24,7 +24,7 @@ import CrashCourse from './components/CrashCourse.jsx'
 import TestComponent from './components/TestComponent.jsx'
 import Listing from './components/Listing.jsx'
 import Chat from './components/profile/Chat.jsx'
-
+import ChatBottom from './components/ChatBottom.jsx'
 // Styles
 
 const store = createStore( // Make global store
@@ -47,6 +47,7 @@ class App extends Component {
         <Router>
           <div>
             <Navigation />
+            <ChatBottom />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/home" component={Home} />
