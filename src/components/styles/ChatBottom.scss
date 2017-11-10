@@ -36,6 +36,7 @@
             border: 0px solid;
             &:focus {
                 outline: none;
+                -webkit-appearance: none;
             }
         }
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import AnimatedBox  from '../reusable/AnimatedBox.jsx'
+// import AnimatedBox  from '../reusable/AnimatedBox.jsx'
 
 import '../styles/Trending.css'
 
@@ -23,7 +23,6 @@ class Trending extends Component {
 
     return (
       <div>
-        <AnimatedBox />
         <div className="hotContainer">
           <h1>New Gear</h1>
           <hr />
@@ -35,7 +34,7 @@ class Trending extends Component {
                       <div className="imgPreview no-hover">
                         <Link to={`/listing/${item._id}`}>
                         <img
-                          src={item.photos[0].image || null} 
+                          src={item.photos.length > 0 ? item.photos[0].image : 'http://via.placeholder.com/150x150'}
                           alt={item.brand}
                           className="imgContent"
                           />

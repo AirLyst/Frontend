@@ -50,5 +50,5 @@ export function getOpenF() {
   }
 
   export const addChat = openChats => ({ type: ADD_CHAT, payload: { openChats } });
-  export const getOpen = () => ({ type: GET_CHATS, payload: { } });
+  export const getOpen = () => ({ type: GET_CHATS, func: getOpenF(), payload: {} });
   export const closeChat = openChats => ({ type: CLOSE_CHAT, payload: { openChats } });

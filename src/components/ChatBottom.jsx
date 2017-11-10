@@ -32,10 +32,11 @@ class ChatBottom extends Component {
   render() {
     return (
       <div className="chatBottom">
-        {Object.keys(this.state.conversationIds).map(x => {
+        {Object.keys(this.state.conversationIds).map((x, k) => {
           console.log(x);
           return (
             <ChatBottomItem
+              key={k}
               getOpen={this.props.getOpen}
               closeChat={this.props.closeChat}
               sendMessage={this.props.sendMessage}

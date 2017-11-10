@@ -43,7 +43,7 @@ class Chat extends Component {
     const _id = this.props.user.info.id
     // Set conversationId because componentDidMount and other
     // functions depends on this variable
-    let bottomChats = this.props.getOpen()
+    let bottomChats = this.props.getOpen().func
     this.setState({ conversationId, isMin: false, bottomChats })
     this.props.getChat({conversationId, _id})
     .then(res => {
@@ -65,9 +65,13 @@ class Chat extends Component {
    * check if the current user sent the new message.
    */
   componentDidMount = () => {
-    this.removeFromLocalStorage()
+    // this.removeFromLocalStorage()
     const { conversationId } = this.state
-    socket.emit('join-conversation', conversationId)
+    let getOpenChats = this.props.getOpen()
+    let openChats = getOpenChats.func
+    if(openChats[this.state.conversationId] === undefined) {
+      socket.emit('join-conversation', conversationId)
+    }
     socket.on('refresh-messages', message => {
       let parsedMessage = message
       if(message.sender === this.props.user.info.id)
@@ -85,8 +89,12 @@ class Chat extends Component {
    * current channel
    */
   componentWillUnmount = () => {
-    socket.removeAllListeners()
-    socket.emit('leave-conversation', this.state.conversationId)
+    let getOpenChats = this.props.getOpen()
+    let openChats = getOpenChats.func
+    if(openChats[this.state.conversationId] === undefined) {
+      socket.removeAllListeners();
+      socket.emit("leave-conversation", this.state.conversationId);
+    }
   }
 
   /**
@@ -169,6 +177,10 @@ scrollToBottom = () => {
       <br/>
       <div className='chatContainer'>
           <div className='chatContent'>
+            {/**<Link to={`/user/${this.state.otherUser._id}`} className='chatHeader'>
+              <img src={this.state.otherUser.profile_picture} alt='profile'/>
+              <h3>{this.state.otherUser.firstName} {this.state.otherUser.lastName}</h3>
+    </Link>**/}
             <ul className='chatMessages'>
               {
                 this.state.messages.map((message, key) => {

@@ -30,7 +30,7 @@ class ChatBottomItem extends Component {
     this.props.getOpen();
     this.setState({ conversationId: this.props.conversationId });
     let conversationId = this.props.conversationId;
-    const _id = this.props.user.id;
+    const _id = this.props.user && this.props.user.id;
     this.props
       .getChat({ conversationId, _id })
       .then(res => {
@@ -52,7 +52,12 @@ class ChatBottomItem extends Component {
 
   componentDidMount = () => {
     const { conversationId } = this.state;
-    socket.emit("join-conversation", conversationId);
+    let getOpenChats = this.props.getOpen()
+    let openChats = getOpenChats.func
+    if(openChats[conversationId] === undefined) {
+      socket.emit("join-conversation", conversationId);
+    }
+
     socket.on("refresh-messages", message => {
       console.log("refresh");
       let parsedMessage = message;
@@ -72,8 +77,12 @@ class ChatBottomItem extends Component {
    * current channel
    */
   componentWillUnmount = () => {
-    socket.removeAllListeners();
-    socket.emit("leave-conversation", this.state.conversationId);
+    let getOpenChats = this.props.getOpen()
+    let openChats = getOpenChats.func
+    if(openChats[this.state.conversationId] === undefined) {
+      socket.removeAllListeners();
+      socket.emit("leave-conversation", this.state.conversationId);
+    }
   };
 
   onChange = e => {
@@ -150,6 +159,7 @@ class ChatBottomItem extends Component {
             </ul>
             <form className="chatBottomInput" onSubmit={this.sendMessage}>
               <input
+                autocomplete="off"
                 type="text"
                 onChange={this.onChange}
                 value={this.state.body}
