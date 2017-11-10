@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import AnimatedBox  from '../reusable/AnimatedBox.jsx'
+// import AnimatedBox  from '../reusable/AnimatedBox.jsx'
 
 import '../styles/Trending.css'
 
@@ -22,7 +22,6 @@ class Trending extends Component {
 
     return (
       <div>
-        <AnimatedBox />
         <div className="hotContainer">
           <h1>New Gear</h1>
           <hr />

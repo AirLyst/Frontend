@@ -146,10 +146,10 @@ scrollToBottom = () => {
       <br/>
       <div className='chatContainer'>
           <div className='chatContent'>
-            <div className='chatHeader'>
+            <Link to={`/user/${this.state.otherUser._id}`} className='chatHeader'>
               <img src={this.state.otherUser.profile_picture} alt='profile'/>
               <h3>{this.state.otherUser.firstName} {this.state.otherUser.lastName}</h3>
-            </div>
+            </Link>
             <ul className='chatMessages'>
               {
                 this.state.messages.map((message, key) => {

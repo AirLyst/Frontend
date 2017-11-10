@@ -1,7 +1,7 @@
 // Modules
 import React, { Component } from 'react';
-import { Link, withRouter }             from 'react-router-dom';
-import { connect }          from 'react-redux'
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux'
 import { logout }   from '../actions/login'
 
 // Components
@@ -22,25 +22,25 @@ class Navigation extends Component {
     category: false,
     dropdown: false,
     hasPicture: false,
-    dropdownStyle: "dropdown"
-  }
-
-  componentWillMount() {
-    if (this.props.user.isAuthenticated) {
-      const { firstName, lastName, profile_picture } = this.props.user.info
-      if (firstName || lastName) 
-        this.setState({ fullName: `${firstName} ${lastName}`})
-      if (profile_picture)
-        this.setState({ hasPicture: true })
-    }
+    dropdownStyle: "dropdown",
+    navContainerStyle: 'navContainer transparent enter nav-top',
+    navContentStyle: 'navContent',
+    currentOffset: 0,
+    logoStyle: 'navLogo logo-hide-at-top'
   }
 
   componentDidMount() {
     document.addEventListener('click', this.handleClickOutside, true)
+    document.addEventListener('scroll', this.handleScroll)
+  }
+
+  componenentDidUpdate() {
+    this.handleScroll()
   }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside, true)
+    document.removeEventListener('scroll', this.handleScroll)
   }
 
   handleClickOutside = event => {
@@ -51,6 +51,29 @@ class Navigation extends Component {
         { this.setState({ dropdown: false, dropdownStyle: "dropdown" }) }
       ,500)
     }
+  }
+
+  handleScroll = event => {
+    const offset = window.pageYOffset
+    if(this.state.offset > offset) {
+      // Scrolling Up, show
+      if(offset > 10){
+        // If we're not at the top
+        this.setState({ navContainerStyle: 'navContainer opaque enter', logoStyle: 'navLogo'})
+      }
+      else{
+        // We're at the top
+        if(this.props.location.pathname === '/'){
+          this.setState({ navContainerStyle: 'navContainer transparent enter nav-top', logoStyle: 'navLogo logo-hide-at-top'})          
+        } else {
+          this.setState({ navContainerStyle: 'navContainer transparent enter', logoStyle: 'navLogo'})
+        }
+      }
+    } else {
+      // Scrolling down, hide
+      this.setState({ navContainerStyle: 'navContainer opaque exit'})
+    }
+    this.setState({ offset })    
   }
 
   toggleMenu = event => {
@@ -92,18 +115,27 @@ class Navigation extends Component {
 
   render() {
     const notLoggedIn = (
-      <span>
-        <button onClick={this.toggleSignup} className="navButton">Sign Up</button>
-        <button onClick={this.toggleLogin} className="navButton">Login</button>
+      <span className='loginContainer'>
+        <button onClick={this.toggleSignup} className="navButton">SIGN UP</button>
+        <button onClick={this.toggleLogin} className="navButton">LOGIN</button>
       </span>
     )
 
+    let name = '', hasPicture = false
+    if (this.props.user.isAuthenticated) {
+      const { firstName, lastName, profile_picture } = this.props.user.info
+      if (firstName || lastName) 
+        name= `${firstName} ${lastName}`
+      if (profile_picture)
+        hasPicture = true
+    }
+
     const loggedIn = (
       <span className="navBubble">
-        {this.state.hasPicture 
+        {hasPicture
           ? <Link to='/profile' style={{textDecoration: 'none'}}><img alt='User Profile' src={this.props.user.info.profile_picture}/> </Link>
           : <ProfileBubble small/>}
-        <p onClick={this.toggleMenu} ref={(ref) => { this.node = ref }}>{this.state.fullName} <span>&#x2335;</span></p>
+        <p onClick={this.toggleMenu} ref={(ref) => { this.node = ref }}>{name} <span>&#x2335;</span></p>
         {this.state.dropdown && 
           <ul className={this.state.dropdownStyle}>
             <li><Link to="/sell" className="dropdownLink" onClick={this.toggleMenu}>Sell</Link></li>
@@ -112,24 +144,30 @@ class Navigation extends Component {
           </ul>}
       </span>
     )
-
+    const { pathname } = this.props.location
+    const hasBanner = pathname !== '/' ? true : false
+    const navContainerStyleUpdate = pathname === '/' 
+      ? this.state.navContainerStyle 
+      : `${this.state.navContainerStyle} no-banner`
+    const logoStyleUpdated = pathname === '/'
+      ? this.state.logoStyle
+      : `${this.state.logoStyle} logo-show-at-top`
     return (
       <div>
-        <div className="navPlaceholder"/>
+        {hasBanner && <div className="navPlaceholder"/>}
         <div className="navOntop">
-          <div className="navContainer">
-            <div className="navContent">
-              <Link to="/" id="navLogo" onClick={this.closeModal}>AIRLYST</Link>
+          <div className={navContainerStyleUpdate}>
+            <div className='navContent'>
+              <Link 
+                to="/" 
+                className={logoStyleUpdated} 
+                onClick={this.closeModal}>AIRLYST
+              </Link>
               {this.props.user.isAuthenticated ? loggedIn : notLoggedIn}
               { this.state.signup && <SignupModal toggle={this.state.signup} close={this.closeModal}/> }
               { this.state.login && <Login toggle={this.state.login} close={this.closeModal}/> }
             </div>
           </div>
-          <NavMobile
-            catState={this.state.category}
-            openModal={this.toggleCat}
-            closeModal={this.closeModal}
-          />
         </div>
       </div>
     )

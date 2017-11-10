@@ -23,6 +23,7 @@ import CrashCourse from './components/CrashCourse.jsx'
 import TestComponent from './components/TestComponent.jsx'
 import Listing from './components/Listing.jsx'
 import Chat from './components/profile/Chat.jsx'
+import UserProfile from './components/UserProfile.jsx'
 
 // Styles
 
@@ -56,6 +57,7 @@ class App extends Component {
               <Route path="/crashcourse" component={CrashCourse} />
               <Route path="/test" component={TestComponent} />
               <Route path="/listing/*" component={Listing} />
+              <Route path="/user/*" component={UserProfile} />
               <Route path="/*" render={() => <h1 style={{textAlign: 'center'}}>PAGE NOT FOUND</h1>} />
             </Switch>
           </div>

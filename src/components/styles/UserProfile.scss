@@ -1,0 +1,22 @@
+.userProfileContainer {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.userInformation {
+  text-align: center;
+  width: 100%;
+  display: block;
+}
+
+.userInformation img {
+  width: 75px;
+  border-radius: 50%;
+}
+
+@media (max-width: 800px) {
+  .userInformation img {
+    width: 50px;
+  }
+}

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import PropTypes      from 'prop-types'
 import FontAwesome from 'react-fontawesome'
+import { Link } from 'react-router-dom'
 
 // Components
 import ImageCard from './ItemImage.jsx'
@@ -78,7 +79,7 @@ class Listing extends Component {
   }
 
   toggleLike = () => {
-
+    
   }
 
   render() {
@@ -129,6 +130,11 @@ class Listing extends Component {
                           <input type='text' value={this.message} onChange={this.onChange} name='message'/>
                         </form>
                     }
+                  <span>
+                    <Link to={`/user/${this.state.listing.user._id}`} >
+                      <FontAwesome name='user-circle-o' /> {this.state.listing.user.firstName}'s Profile
+                    </Link>
+                  </span>  
                   <span>
                     <h4 onClick={ this.toggleLike }>
                       <FontAwesome name='star-o' /> Save Listing
