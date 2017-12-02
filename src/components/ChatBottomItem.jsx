@@ -5,8 +5,8 @@ import FontAwesome from "react-fontawesome";
 import { Link } from "react-router-dom";
 
 // User Functions
-import { getChat, sendMessage } from "../actions/message.js";
-import { getOpen, closeChat } from "../actions/chat.js";
+// import { getChat, sendMessage } from "../actions/message.js";
+// import { getOpen, closeChat } from "../actions/chat.js";
 import socket from "../utils/socket.js";
 // Styles
 import "./styles/ChatBottom.scss";

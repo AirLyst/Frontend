@@ -5,13 +5,13 @@ const GET_CHATS = 'chats/GET_CHATS'
 
 export function getOpenF() {
     let openChats = {}
-    if(localStorage['openChats'] != undefined) openChats = JSON.parse(localStorage['openChats'])
+    if(localStorage['openChats'] !== undefined) openChats = JSON.parse(localStorage['openChats'])
     return openChats
   }
 
   export function closeChatF(id) {
     let openChats = {}
-    if(localStorage['openChats'] != undefined) openChats = JSON.parse(localStorage['openChats'])
+    if(localStorage['openChats'] !== undefined) openChats = JSON.parse(localStorage['openChats'])
     delete openChats[id]
     localStorage.setItem('openChats', JSON.stringify(openChats))
     return openChats
@@ -19,7 +19,7 @@ export function getOpenF() {
 
   export function addChatF(id) {
     let openChats = {}
-    if(localStorage['openChats'] != undefined) openChats = JSON.parse(localStorage['openChats'])
+    if(localStorage['openChats'] !== undefined) openChats = JSON.parse(localStorage['openChats'])
     if (!openChats[id]) openChats[id] = true
     localStorage.setItem('openChats', JSON.stringify(openChats))
     return openChats
@@ -32,15 +32,15 @@ export function getOpenF() {
   export default function reducer(state = initialState, action = {}) {
     const { type, payload } = action;
     let openChats = getOpenF()
-    console.log('alex', openChats)
+    // console.log('alex', openChats)
     switch( type ) {
       case ADD_CHAT:
         openChats = addChatF( payload.openChats )
-        console.log(openChats, payload.openChats)
+        // console.log(openChats, payload.openChats)
         return Object.assign({}, state.openChats, openChats)
       case CLOSE_CHAT:
         openChats = closeChatF( payload.openChats )
-        console.log(openChats, payload.openChats)
+        // console.log(openChats, payload.openChats)
         return Object.assign({}, state.openChats, openChats)
       case GET_CHATS:
         return Object.assign({}, state.openChats, openChats);

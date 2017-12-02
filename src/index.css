@@ -13,3 +13,9 @@ body {
     background: #F29B70;
     color: #fff;
 }
+
+.generalContainer {
+  width: 80%;
+  max-width: 800px;
+  margin: auto;
+}

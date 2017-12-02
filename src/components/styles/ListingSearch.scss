@@ -1,0 +1,37 @@
+.listingSearchContainer {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.listingSearchContainer img {
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+  transition: all 0.5s;
+}
+
+.listingSearchContainer hr {
+  width: 70%;
+  border: none;
+  border-bottom: solid 1px #ccc;
+  margin:0;
+}
+
+.listingSearchContainer img:hover {
+  -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.3);
+}
+
+.listingSearchContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: solid;
+  border-color: transparent;
+  flex-shrink: 1;
+}
+
+.listingSearchItem {
+}

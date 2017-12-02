@@ -20,12 +20,13 @@ import Signup from './components/Signup.jsx'
 import Login from './components/Login.jsx'
 import Profile from './components/Profile.jsx'
 import Sell from './components/Sell.jsx'
+import ListingSearch from './components/ListingSearch.jsx'
 import CrashCourse from './components/CrashCourse.jsx'
 import TestComponent from './components/TestComponent.jsx'
 import Listing from './components/Listing.jsx'
+import UserProfile from './components/UserProfile.jsx'
 import Chat from './components/profile/Chat.jsx'
 import ChatBottom from './components/ChatBottom.jsx'
-import UserProfile from './components/UserProfile.jsx'
 
 // Styles
 
@@ -62,6 +63,7 @@ class App extends Component {
               <Route path="/test" component={TestComponent} />
               <Route path="/listing/*" component={Listing} />
               <Route path="/user/*" component={UserProfile} />
+              <Route path="/search/*" component={ListingSearch} />
               <Route path="/*" render={() => <h1 style={{textAlign: 'center'}}>PAGE NOT FOUND</h1>} />
             </Switch>
           </div>

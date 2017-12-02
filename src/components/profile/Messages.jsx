@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { RotatingPlane } from 'better-react-spinkit'
+import Loading from '../Loading.jsx'
 
 // utils
 import { newConversation, getConversations } from '../../actions/message'
@@ -33,7 +33,7 @@ class Messages extends Component {
     return (
       <div>
         {this.state.isLoading
-          ? <span className='messageLoading'><RotatingPlane color='#F29A70' size={50}/></span>
+          ? <Loading message="Fetching chats" half/>
           : <div className="chatThreadContainer">
               <h3>Messages</h3>
               <hr/>

@@ -45,3 +45,9 @@ export function likeListing(data) {
     return axios.post('http://localhost:4000/api/listing/like', data)
   }
 }
+
+export function getListingsByQuery(query, pivot) {
+  return dispatch => {
+    return axios.get(`http://localhost:4000/api/listing/search/${query}/${pivot}`)
+  }
+}

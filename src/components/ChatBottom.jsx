@@ -1,39 +1,38 @@
 // Node Modules
-import React, { Component } from "react";
-import ReactDOM from "react-dom";
-import { connect } from "react-redux";
-import ChatBottomItem from "./ChatBottomItem.jsx";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import ChatBottomItem from "./ChatBottomItem.jsx"
 
 // User Functions
-import { getChat, sendMessage } from "../actions/message.js";
-import { getOpen, closeChat } from "../actions/chat.js";
-import mapStateToProps from "../utils/redux.js";
+import { getChat, sendMessage } from "../actions/message.js"
+import { getOpen, closeChat } from "../actions/chat.js"
+import mapStateToProps from "../utils/redux.js"
 // Styles
-import "./styles/ChatBottom.scss";
+import "./styles/ChatBottom.scss"
 
 class ChatBottom extends Component {
   state = {
     conversationIds: {}
-  };
+  }
 
   componentWillMount = () => {
-    if (localStorage["openChats"] != undefined)
-      this.setState({ conversationIds: JSON.parse(localStorage["openChats"]) });
-    else this.setState({ conversationIds: {} });
-  };
+    if (localStorage["openChats"] !== undefined)
+      this.setState({ conversationIds: JSON.parse(localStorage["openChats"]) })
+    else this.setState({ conversationIds: {} })
+  }
 
   componentWillReceiveProps = () => {
-    console.log("ok");
-    if (localStorage["openChats"] != undefined)
-      this.setState({ conversationIds: JSON.parse(localStorage["openChats"]) });
-    else this.setState({ conversationIds: {} });
-  };
+    console.log("ok")
+    if (localStorage["openChats"] !== undefined)
+      this.setState({ conversationIds: JSON.parse(localStorage["openChats"]) })
+    else this.setState({ conversationIds: {} })
+  }
 
   render() {
     return (
       <div className="chatBottom">
         {Object.keys(this.state.conversationIds).map((x, k) => {
-          console.log(x);
+          console.log(x)
           return (
             <ChatBottomItem
               key={k}
@@ -44,10 +43,10 @@ class ChatBottom extends Component {
               user={this.props.user.info}
               conversationId={x}
             />
-          );
+          )
         })}
       </div>
-    );
+    )
   }
 }
 
@@ -56,4 +55,4 @@ export default connect(mapStateToProps, {
   sendMessage,
   getOpen,
   closeChat
-})(ChatBottom);
+})(ChatBottom)

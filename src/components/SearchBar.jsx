@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import './styles/SearchBar.scss'
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   state = {
-    searchParam: ''
+    query: ''
   }
 
-  onChange = e => { this.setState({ [e.target.name]: e.target.value })}
+  onChange = e => this.setState({ [e.target.name]: e.target.value })
 
   onSubmit = e => {
     e.preventDefault()
+    const { query } = this.state
+    if (query !== '')
+      this.context.router.history.push(`/search/${query}`)
   }
   render() {
     return (
@@ -18,7 +22,7 @@ export default class SearchBar extends Component {
         <form className='searchBar' onSubmit={this.onSubmit}>
           <input
             type='text'
-            name='searchParam'
+            name='query'
             placeholder='Search for designers, type, colors...'
             onChange={this.onChange}
             value={this.state.searchParam}/>
@@ -27,3 +31,9 @@ export default class SearchBar extends Component {
     )
   }
 }
+
+SearchBar.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
+export default SearchBar

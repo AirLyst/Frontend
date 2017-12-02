@@ -6,9 +6,9 @@ import { logout }   from '../actions/login'
 
 // Components
 import ProfileBubble from './profile/ProfileBubble.jsx'
-import SignupModal from './SignupModal.jsx'
-import Login from './Login.jsx'
-import NavMobile from './NavMobile.jsx'
+// import SignupModal from './SignupModal.jsx'
+// import Login from './Login.jsx'
+// import NavMobile from './NavMobile.jsx'
 
 //Styles
 import './styles/Navigation.css'

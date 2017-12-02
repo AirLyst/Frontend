@@ -31,8 +31,8 @@ class Home extends React.Component {
               </span>
             </div>
           </div>
-          {//<SearchBar />
-          }
+          <br/>
+          <SearchBar />
           <Route path="/home/trending"     component={Trending} />
           <Route path="/home/tops"         component={Tops} />
           <Route path="/home/bottoms"      component={Bottoms} />

@@ -1,20 +1,31 @@
 import React, { Component } from 'react';
-import { DoubleBounce } from 'better-react-spinkit'
+import { RotatingPlane } from 'better-react-spinkit'
+import PropTypes from 'prop-types';
 
-// Loading container styles in Listings.scss
+import './styles/Loading.scss'
 
 class Loading extends Component {
   render() {
     return (
-      <div className="loadingContainer">
-        <DoubleBounce
-          className="loadingContent"
-          color="#FC966C"
-          size={50}
-        />
+      <div className={this.props.half ? "loadingContainer viewport-half" : "loadingContainer"}>
+        <div className="loadingContent">
+          <span className="loadingAnimation">
+            <RotatingPlane
+              className="loadingAnimation"
+              color="#FC966C"
+              size={50}
+            />
+          </span>
+          <h3>{this.props.message}</h3>
+        </div>
       </div>
     );
   }
+}
+
+Loading.propTypes = {
+  message: PropTypes.string,
+  half: PropTypes.bool
 }
 
 export default Loading
