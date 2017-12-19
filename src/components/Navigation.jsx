@@ -34,9 +34,9 @@ class Navigation extends Component {
     document.addEventListener('scroll', this.handleScroll)
   }
 
-  componenentDidUpdate() {
-    this.handleScroll()
-  }
+  // componenentDidUpdate() {
+  //   this.handleScroll()
+  // }
 
   componentWillUnmount() {
     document.removeEventListener('click', this.handleClickOutside, true)

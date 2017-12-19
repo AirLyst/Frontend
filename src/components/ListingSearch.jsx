@@ -5,15 +5,19 @@ import { Link } from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import { getListingsByQuery } from '../actions/listing'
 import mapStateToProps from '../utils/redux.js'
+import Select, { Creatable } from 'react-select';
 
 import './styles/ListingSearch.scss'
-
+import { sizing, conditionOptions, categoryOptions } from './data/Sizing'
 class ListingSearch extends Component {
   state = {
     isLoading: true,
     noListings: false,
     pivot: null,
-    listings: []
+    listings: [],
+    currentCat: [...sizing.oneSize, ...sizing.tops],
+    category: "tops",
+    condition: "new"    
   }
 
   componentDidMount = () => {
@@ -60,10 +64,63 @@ class ListingSearch extends Component {
     windowBottom >= docHeight && this.fetchListings()
   }
 
+  categoryChange = val => {
+    if (!val)
+      this.setState({ category: null, currentCat: null })
+    else
+      this.setState({ category: val.value, currentCat: [...sizing.oneSize, ...sizing[val.value]] })
+  }
+
+  sizeChange = val => {
+    if (!val)
+      this.setState({ size: null })
+    else
+      this.setState({ size: val.value })
+  }
+
+  condoChange = val => {
+    if (!val)
+      this.setState({ condition: null })
+    else
+      this.setState({ condition: val.value })
+  }
+
   render() {
     return (
       <div className='listingSearchContainer'>
         <h1>Results for {this.props.match.params[0]}</h1>
+        <span className='searchFilterContainer'>
+          <span className='searchFilterItem'>
+            <label>Category</label>
+            <Select
+              name="form-field-name"
+              className="searchFilterSelect"
+              value={this.state.category}
+              options={categoryOptions}
+              onChange={this.categoryChange}
+            />
+          </span>
+          <span className='searchFilterItem'>
+            <label>Size</label>
+            <Select
+              name="form-field-name"
+              className="searchFilterSelect"
+              value={this.state.category}
+              options={categoryOptions}
+              onChange={this.condition}
+            />
+          </span>
+          <span className='searchFilterItem'>
+            <label>Condition</label>
+            <Select
+              name="form-field-name"
+              className="searchFilterSelect"
+              value={this.state.condition}
+              options={conditionOptions}
+              onChange={this.condoChange}
+            />
+          </span>
+        </span>
         <hr/><br/>  
         <div className='userListingContainer'>
           <div className='listingSearchContent'>

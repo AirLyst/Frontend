@@ -75,6 +75,7 @@ class Sell extends Component {
         photos: this.state.photos,
         userId: this.props.user.info.id
       }
+      console.log(sellData)
 
       this.props.listItem(sellData)
       .then(data => {

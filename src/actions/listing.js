@@ -16,13 +16,13 @@ export function listItem(data) {
     formData.append('size', data.size)
     formData.append('category', data.category)
     formData.append('price', data.price)
-    return axios.post('http://localhost:4000/api/listing', formData)
+    return axios.post('/api/listing', formData)
   }
 }
 
 export function getListingById(listingId) {
   return dispatch => {
-    return axios.get(`http://localhost:4000/api/listing/${listingId}`)
+    return axios.get(`/api/listing/${listingId}`)
   }
 }
 
@@ -32,7 +32,7 @@ export function getListingById(listingId) {
  */
 export function getUserListings(userId, pivot) {
   return dispatch => {
-    return axios.get(`http://localhost:4000/api/listing/user/${userId}/${pivot}`)
+    return axios.get(`/api/listing/user/${userId}/${pivot}`)
   }
 }
 
@@ -42,12 +42,12 @@ export function getUserListings(userId, pivot) {
  */
 export function likeListing(data) {
   return dispatch => {
-    return axios.post('http://localhost:4000/api/listing/like', data)
+    return axios.post('/api/listing/like', data)
   }
 }
 
 export function getListingsByQuery(query, pivot) {
   return dispatch => {
-    return axios.get(`http://localhost:4000/api/listing/search/${query}/${pivot}`)
+    return axios.get(`/api/listing/search/${query}/${pivot}`)
   }
 }

@@ -10,7 +10,7 @@ class Trending extends Component {
     recentItems: []
   }
   componentWillMount() {
-    axios.get('http://localhost:4000/api/listing/recents/6')
+    axios.get('/api/listing/recents/6')
     .then(res => {
       console.log(res.data)
       let { recentItems } = this.state
