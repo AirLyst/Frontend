@@ -8,3 +8,14 @@ body {
   padding: 0;
   font-family: 'Karla', helvetica, sans-serif;
 }
+
+::selection {
+    background: #F29B70;
+    color: #fff;
+}
+
+.generalContainer {
+  width: 80%;
+  max-width: 800px;
+  margin: auto;
+}

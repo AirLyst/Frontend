@@ -48,6 +48,8 @@ export function gLogin(data) {
 
 export function logout() {
   return dispatch => {
+    if(localStorage.removeItem('cache-sell'))
+      localStorage.removeItem('cache-sell')
     localStorage.removeItem('jwtToken')
     setAuthorizationToken(false)
     dispatch(setCurrentUser({}))

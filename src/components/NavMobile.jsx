@@ -54,7 +54,7 @@ class NavCategory extends Component{
                   <NavLink
                     key={key}
                     onClick={this.catClose}
-                    to={`/${category}`}
+                    to={`/home/${category}`}
                     className="mobileLinks"
                     activeClassName="mobileLinks active">
                     {category}

@@ -1,3 +1,38 @@
+.homeContainer {
+  margin: auto;
+  animation: fade 1.5s forwards;
+}
+.homeHeader {
+  height: calc(70vh);
+  min-height: 400px;
+  max-height: 450px;
+  background: #ff9966;
+  background: -webkit-linear-gradient(to left, #ff5e62, #ff9966); 
+  background: linear-gradient(to left, #ff5e62, #ff9966); 
+}
+
+.homeHeaderContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.homeHeaderContent h1 {
+  font-size: 40px;
+  color: white;
+  margin: 0px;
+  
+}
+
+.homeHeaderContent h2 {
+  margin: 0px;
+  padding-left: 2em;
+  font-weight: 300;
+  color: white;
+}
+
 .catMobile {
   display: none;
 }
@@ -33,10 +68,28 @@
 .catLinks.active {
   border-bottom: solid #FF9666 1px;
 }
-
+@media (max-width: 800px) {
+  .homeHeaderContent h1 {
+    font-size: 24px;
+    padding-left: 1em;
+    width: 70%;
+  }
+  
+  .homeHeaderContent h2 {
+    font-size: 12px;
+    width: 60%;
+  }
+}
 @media (max-device-width: 800px) {
+
+
+
   .catContainer {
     display: none;
+  }
+  .catContainer.profile {
+    display: block;
+    max-width: none;
   }
   .modalArrow {
     z-index: 1;
@@ -45,6 +98,7 @@
     border-width: 0 3px 3px 0;
     display: inline-block;
     padding: 5px;
+    transition: all 0.5s;
   }
   .modalArrow.down {
     transform: rotate(45deg);
@@ -54,6 +108,7 @@
   .modalArrow.up {
     transform: rotate(-135deg);
     -webkit-transform: rotate(-135deg);
+    opacity: 0.3;
     transition: transform 0.5s ease;
   }
   .catMobile {
@@ -70,10 +125,10 @@
     margin-top: -23px;
   }
   .mobileLinkContainer.enter {
-    animation: catIn 0.5s forwards;
+    animation: fadein 0.5s forwards;
   }
   .mobileLinkContainer.leave {
-    animation: catOut 0.3s forwards;
+    animation: fadeout 0.3s forwards;
   }
   .mobileLinks {
     display: block;

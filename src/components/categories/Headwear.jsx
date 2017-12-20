@@ -7,7 +7,7 @@ class Headwear extends Component {
     return (
       <div>
         <ShowContent
-          category="Bottoms"
+          category="Headwear"
         />
       </div>
     );

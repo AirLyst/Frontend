@@ -17,11 +17,16 @@ import { Provider } from 'react-redux'
 import Navigation from './components/Navigation.jsx'
 import Home from './components/Home.jsx'
 import Signup from './components/Signup.jsx'
+import Login from './components/Login.jsx'
 import Profile from './components/Profile.jsx'
 import Sell from './components/Sell.jsx'
+import ListingSearch from './components/ListingSearch.jsx'
 import CrashCourse from './components/CrashCourse.jsx'
 import TestComponent from './components/TestComponent.jsx'
-import Listings from './components/Listings.jsx'
+import Listing from './components/Listing.jsx'
+import UserProfile from './components/UserProfile.jsx'
+import Chat from './components/profile/Chat.jsx'
+import ChatBottom from './components/ChatBottom.jsx'
 
 // Styles
 
@@ -45,15 +50,20 @@ class App extends Component {
         <Router>
           <div>
             <Navigation />
+            <ChatBottom />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/home" component={Home} />
               <Route path="/signup" component={Signup} />
+              <Route path="/signin" component={Login} />
               <Route path="/profile" component={Profile} />
+              <Route path="/messages/*" component={Chat} />
               <Route path="/sell" component={Sell} />
               <Route path="/crashcourse" component={CrashCourse} />
               <Route path="/test" component={TestComponent} />
-              <Route path="/listings/*" component={Listings} />
+              <Route path="/listing/*" component={Listing} />
+              <Route path="/user/*" component={UserProfile} />
+              <Route path="/search/*" component={ListingSearch} />
               <Route path="/*" render={() => <h1 style={{textAlign: 'center'}}>PAGE NOT FOUND</h1>} />
             </Switch>
           </div>

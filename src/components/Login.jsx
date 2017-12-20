@@ -6,14 +6,13 @@ import FacebookLogin        from 'react-facebook-login'
 import GoogleLogin          from 'react-google-login'
 import FontAwesome          from 'react-fontawesome'
 import { login, fbLogin, gLogin } from '../actions/login'
+import './styles/Signin.scss'
 
 class Login extends Component {
 
   state = {
     username: '',
-    password: '',
-    modalContainer: 'modalContainer enter',
-    modalContent: 'modalContent enter'
+    password: ''
   }
 
   onChange = (e) => {
@@ -24,24 +23,16 @@ class Login extends Component {
     e.preventDefault()
     this.props.login(this.state)
     .then(res => {
-      this.closeModal()
       this.context.router.history.push('/')
     })
   }
 
-  closeModal = () => {
-    this.setState({ modalContent: 'modalContent leave', modalContainer: 'modalContainer leave' })
-    setTimeout(() => {
-      this.props.close()
-    }, 500)
-  }
 
   facebookLogin = (res) => {
     const { accessToken, email, picture } = res
     const token = { accessToken, email, picture }
     this.props.fbLogin(token, email)
     .then(res => {
-      this.closeModal()
       this.context.router.history.push('/')
    })
   }
@@ -52,7 +43,6 @@ class Login extends Component {
     const token = { id_token, email }
     this.props.gLogin(token)
     .then(res => {
-      this.closeModal()
       this.context.router.history.push('/')
     })
   }
@@ -62,18 +52,17 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className={this.state.modalContainer}>
-        <form className={this.state.modalContent} onSubmit={this.onSubmit} type="submit">
+      <div className='signin-page'>
+        <form onSubmit={this.onSubmit} type="submit">
 
-          <span onClick={this.closeModal} id="modalClose">&times;</span>
           <h1>Login</h1>
-          <div className="modalForm login">
+          <div className="login">
             <input type="text"  name="username" placeholder="Username" value={this.state.username} onChange={this.onChange} />
             <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.onChange} />
-            <button type="submit" id="modalSubmit" onClick={this.onSubmit}>Login</button>
+            <button type="submit" onClick={this.onSubmit}>Login</button>
           </div>
-          <hr />
-          <FacebookLogin
+          <br />
+          <span className='outsideLogin'><FacebookLogin
             appId="1149120715232337"
             callback={this.facebookLogin}
             fields="name,email"
@@ -93,7 +82,7 @@ class Login extends Component {
               id="googleLogo"
               size="lg"/>
               <span>&emsp;Login with Google</span>
-          </GoogleLogin>
+          </GoogleLogin></span>
         </form>
       </div>
     )

@@ -7,7 +7,7 @@ import FontAwesome    from 'react-fontawesome'
 import Validator      from 'validator'
 
 // Styles
-import './styles/Signup.css'
+import './styles/Signup.scss'
 
 // Redux
 import { connect } from 'react-redux'
@@ -99,19 +99,19 @@ class Signup extends Component {j
 
   render() {
     return (
-      <div>
-        <h1 style={{textAlign: "center"}}>Sign Up</h1>
+      <div className='signup-outer'>
+        <h1>Sign Up</h1>
         <div className="signupContainer">
           <form onSubmit={this.onSubmit} className="signupForm">
-            <label>First Name</label>
+            <span className='inputs'><span className='left-item'><label>First Name</label>
             <input 
               type='text' 
               name='firstName'
               onChange={this.onChange}
               onClick={this.clearErrors}
               required
-            />
-            <label>Last Name</label>
+            /></span>
+            <span className='right-item'><label>Last Name</label>
             <input 
               type='text' 
               name='lastName' 
@@ -119,7 +119,7 @@ class Signup extends Component {j
               onChange={this.onChange}
               onClick={this.clearErrors} 
               required
-            />
+            /></span></span>
           <label>E-Mail</label>
           <input 
             type='email' 
@@ -173,7 +173,7 @@ class Signup extends Component {j
               <button type='submit' onClick={this.onSubmit}>Sign Up</button>
           </form>
         </div>
-          <FacebookLogin
+          <span className='outsideSignup'><FacebookLogin
             appId="1149120715232337"
             callback={this.facebookSignup}
             fields="name,email"
@@ -193,7 +193,7 @@ class Signup extends Component {j
               id="googleLogo"
               size="lg"/>
               <span>&emsp;Signup with Google</span>
-          </GoogleLogin>
+          </GoogleLogin></span>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
 import axios from 'axios'
-
-import AnimatedBox  from '../reusable/AnimatedBox.jsx'
+// import AnimatedBox  from '../reusable/AnimatedBox.jsx'
 
 import '../styles/Trending.css'
 
@@ -10,20 +10,19 @@ class Trending extends Component {
     recentItems: []
   }
   componentWillMount() {
-    const quantity = { quantity: 8 }
-    axios.post('http://localhost:4000/api/listing/recents', quantity)
+    axios.get('/api/listing/recents/6')
     .then(res => {
+      console.log(res.data)
       let { recentItems } = this.state
       recentItems = [...recentItems, ...res.data]
       this.setState({ recentItems: recentItems })
-      console.log(res)
     })
+    .catch(err => console.log(err.message))
   }
   render() {
 
     return (
       <div>
-        <AnimatedBox />
         <div className="hotContainer">
           <h1>New Gear</h1>
           <hr />
@@ -33,14 +32,15 @@ class Trending extends Component {
                   return (
                     <div key={key} className="imgContainer">
                       <div className="imgPreview no-hover">
-                        <a href={`/listings/${item._id}`}>
-                        <img 
-                          src={item.photos[0]} 
+                        <Link to={`/listing/${item._id}`}>
+                        <img
+                          src={item.photos.length > 0 ? item.photos[0].image : 'http://via.placeholder.com/150x150'}
                           alt={item.brand}
                           className="imgContent"
                           />
-                        </a>
-                        <p>{item.brand}</p>
+                        </Link>
+                        <p>{item.name}</p>
+                        <p style={{color: 'rgb(200,200,200)'}}>${item.price}</p>
                       </div>
                     </div>
                   )

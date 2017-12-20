@@ -22,6 +22,11 @@
   to {opacity: 1;}
 }
 
+@keyframes fade-leave {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
 @keyframes filterIn-down {
   0%{transform: translateY(-10%); opacity: 0;}
   100%{transform: translateY(0%); opacity: 1;}
@@ -68,15 +73,13 @@
 }
 
 @keyframes pullup {
-  0% {transform: translateY(50%); opacity: 0;}
-  70% {transform: translateY(-55%); opacity: 1;}
-  90% {transform: translateY(10%); opacity: 1;}
-  100% {transform: translateY(0%); opacity: 1;}
+  0% {transform: translateY(-10%); opacity: 0;}
+  100% {transform: translateY(-0%); opacity: 1;}
 }
 
 @keyframes pullup-leave {
-  from { transform: (translateY(0%)); opacity: 1;}
-  to { transform: (translateY(-100%)); opacity: 0;}
+  0% { transform: (translateY(0%)); opacity: 1;}
+  100% { transform: (translateY(-100%)); opacity: 0;}
 }
 
 @keyframes scale-up {

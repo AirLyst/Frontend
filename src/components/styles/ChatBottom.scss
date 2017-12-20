@@ -1,0 +1,95 @@
+.chatBottom {
+    position: fixed;
+    bottom: 0;
+    right: 30px;
+    display: flex;
+    z-index: 9;
+}
+
+.chatItem {
+    width: 250px;
+    height: 310px;
+    border: solid 1px rgb(175, 175, 175);
+    border-bottom: 0px white;
+    border-top: 0px white;
+    background: white;
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+}
+
+.closeIcon {
+    position: absolute;
+    top: -20px;
+    cursor: pointer;
+}
+
+.chatBottomContent {
+    height: 100%;
+    form {
+        height: 20px;
+        width: 100%;
+        display: flex;
+        input {
+            flex: 1;
+            border: 0px solid;
+            &:focus {
+                outline: none;
+                -webkit-appearance: none;
+            }
+        }
+    }
+    a {
+        text-decoration: none;
+        color: black;
+    }
+    .chatBottomInfo {
+        border: solid 1px #ff6d63;
+        padding: 5px;
+        margin: 0 -1px;
+        text-align: center;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        background: #ff6d63;
+        color: white;
+    }
+    ul {
+        height: 250px;
+        padding: 0 5px;
+        width: 240px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        display: flex;
+        flex-direction: column;
+        margin: 0 0 3px 0;
+        border-bottom: solid 1px rgb(194, 194, 194);
+        li {
+            margin: 5px 0;
+            padding: 7px;
+            display: inline-table;
+        }
+        .messageRight {
+            align-self: flex-end;
+            border-radius: 7px;
+            padding: 7px;
+            font-size: 14px;
+            margin: 10px 10px 10px 20px;
+        }
+        .messageLeft {
+            width: 100%;
+            background: none;
+            margin: 10px 20px 10px 10px;
+            span {
+                background-color: rgb(237, 237, 237);
+                padding: 7px;
+                font-size: 14px;
+                border-radius: 7px;
+            }
+        }
+    }
+}
+.chatBottomContainer {
+    height: 100%;
+}
