@@ -1,0 +1,88 @@
+$light-orange: #FC946D;
+$dark-orange: #FB5F66;
+.recentContainer {
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.recentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  h1 {
+    color: #333;
+  }
+  p {
+    margin: 0px;
+    cursor: pointer;    
+    border: solid 1px $light-orange;
+    color: $light-orange;
+    padding: 5px 8px;
+    border-radius: 5px;
+    transition: all 0.2s;
+    &:hover {
+      color: white;
+      background-color: $light-orange;
+    }
+  }
+}
+
+.recentLoadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+}
+
+.seeMoreIcon {
+  border: solid 1px transparent;
+  &:hover{
+    border-color: $light-orange;
+    border-radius: 50%;
+  }
+}
+
+.itemGridContainer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.itemImageContainer {
+  padding: 8px 0px;
+  
+  img{
+    object-fit: cover;
+    width: 200px;
+    height: 150px;
+    border-radius: 3px;
+    border: solid 1px #eee;
+  }
+}
+.itemDetails {
+  width: 200px;
+  p {
+    color: #777;
+    margin: 0;
+  }
+
+  h3 {
+    margin: 5px 0px;
+    color: $dark-orange;
+  }
+  p:last-child {
+    color: #333;
+  }
+}
+
+.itemPriceLikes {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 1000px) {
+  .itemGridContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

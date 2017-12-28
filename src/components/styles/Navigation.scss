@@ -12,7 +12,7 @@
 
 .navButton {
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   background-color: transparent;
   font-weight: 700;
   border: none;
@@ -21,6 +21,7 @@
   animation: zoom-out 0.3s;
   text-decoration: none;
   margin: 0px 10px;
+  letter-spacing: 2px;
 }
 
 .navBubble {
@@ -30,6 +31,15 @@
   width: 40%;
   max-width: 250px;
   margin-top: -18px;
+  p {
+    display: inline-block;
+    font-size: 16px;
+    color: rgb(100,100,100);
+    padding: 0px 10px;
+    cursor: pointer;
+    line-height: 2em;
+    transition: all 2s;
+  }
 }
 
 .left {
@@ -37,15 +47,6 @@
   border-right: solid 1px rgb(220,220,200);
 }
 
-.navBubble p {
-  display: inline-block;
-  font-size: 16px;
-  color: rgb(100,100,100);
-  padding: 0px 10px;
-  cursor: pointer;
-  line-height: 2em;
-  transition: all 2s;
-}
 
 .navBubble span {
   color: rgb(200,200,200);

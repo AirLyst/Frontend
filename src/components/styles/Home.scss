@@ -3,9 +3,9 @@
   animation: fade 1.5s forwards;
 }
 .homeHeader {
-  height: calc(70vh);
-  min-height: 400px;
-  max-height: 450px;
+  height: calc(60vh);
+  min-height: 300px;
+  max-height: 400px;
   background: #ff9966;
   background: -webkit-linear-gradient(to left, #ff5e62, #ff9966); 
   background: linear-gradient(to left, #ff5e62, #ff9966); 
@@ -23,7 +23,6 @@
   font-size: 40px;
   color: white;
   margin: 0px;
-  
 }
 
 .homeHeaderContent h2 {
@@ -31,6 +30,31 @@
   padding-left: 2em;
   font-weight: 300;
   color: white;
+}
+
+.homeHeaderAuthenticated {
+  margin: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+  width: 55%;
+  flex-wrap: wrap;
+  font-size: 18px;
+  text-align: center;
+  span {
+    color: white;
+    border-radius: 5px;
+    padding: 5px 7px;
+    border: solid 1px white;
+    transition: all 0.5s;
+    &:hover {
+      color: #ff9966;
+      background-color: white;
+    }
+  }
+
+  .homeHeaderLink {
+    text-decoration: none;
+  }
 }
 
 .catMobile {
@@ -68,7 +92,90 @@
 .catLinks.active {
   border-bottom: solid #FF9666 1px;
 }
+
+.svgContainer {
+  padding: 100px 0px;
+  width: 75%;
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: solid 1px #eee;
+  img {
+    width: 50%;
+  }
+
+  button {
+    padding: 7px 15px;
+    background-color: transparent;
+    border-color: #ff9966;
+    border-radius: 5px;
+    color: #ff9966;
+    font-weight: 300;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #ff9966;
+      color: white;
+    }
+  }
+
+  .profileSVG {
+    width: 25%;
+    min-width: 150px;
+    padding-right: 10%;
+    padding-left: 0;
+  }
+}
+
+.svgTextContainer {
+  p {
+    width: 80%;
+  }
+}
+
+.shopCategoryContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.shopCategoryImage {
+  width: 45%;
+  img {
+    width: 80%;
+  }
+}
+
+.shopCategoryImageText {
+  color: white;
+  margin-top: 12%;
+  margin-left: -20%;
+  position: absolute;
+  font-size: 24px;
+  line-height: 10px;
+}
+
 @media (max-width: 800px) {
+  .homeHeaderAuthenticated {
+    display: block;
+    width: 75%;
+    text-align: center;;
+    span {
+      padding: 2px 5px;
+      font-size: 13px;
+      margin: 5px;
+    }
+  }
+  .homeHeader {
+    height: calc(50vh);
+    min-height: 300px;
+    max-height: 350px;
+  }
   .homeHeaderContent h1 {
     font-size: 24px;
     padding-left: 1em;
@@ -81,9 +188,6 @@
   }
 }
 @media (max-device-width: 800px) {
-
-
-
   .catContainer {
     display: none;
   }

@@ -11,7 +11,7 @@ import ProfileBubble from './profile/ProfileBubble.jsx'
 // import NavMobile from './NavMobile.jsx'
 
 //Styles
-import './styles/Navigation.css'
+import './styles/Navigation.scss'
 
 class Navigation extends Component {
 
@@ -116,8 +116,8 @@ class Navigation extends Component {
   render() {
     const notLoggedIn = (
       <span className='loginContainer'>
-        <Link to='/signup'><button onClick={this.toggleSignup} className="navButton">Sign Up</button></Link>
-        <Link to='/signin'><button onClick={this.toggleLogin} className="navButton">Login</button></Link>
+        <Link to='/signup'><button onClick={this.toggleSignup} className="navButton">SIGNUP</button></Link>
+        <Link to='/signin'><button onClick={this.toggleLogin} className="navButton">LOGIN</button></Link>
       </span>
     )
 
