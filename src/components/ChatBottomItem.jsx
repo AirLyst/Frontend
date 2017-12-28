@@ -23,13 +23,18 @@ class ChatBottomItem extends Component {
     listing: {
       photos: [{ image: "" }]
     },
-    conversationId: ""
+    conversationId: "",
+    conversation: {},
+    loading: false
   };
 
   componentWillMount = () => {
-    this.props.getOpen();
-    this.setState({ conversationId: this.props.conversationId });
-    let conversationId = this.props.conversationId;
+    this.setState({
+      loading: true,
+      conversationId: this.props.conversationId,
+      conversation: this.props.conversations
+    });
+    let { conversationId } = this.props;
     const _id = this.props.user && this.props.user.id;
     this.props
       .getChat({ conversationId, _id })
@@ -41,6 +46,7 @@ class ChatBottomItem extends Component {
           else return { sender: res.data.user.firstName, body: message.body };
         });
         this.setState({
+          loading: false,
           messages,
           otherUser: res.data.user,
           listing: res.data.listing
@@ -52,11 +58,7 @@ class ChatBottomItem extends Component {
 
   componentDidMount = () => {
     const { conversationId } = this.state;
-    let getOpenChats = this.props.getOpen()
-    let openChats = getOpenChats.func
-    if(openChats[conversationId] === undefined) {
-      socket.emit("join-conversation", conversationId);
-    }
+    socket.emit("join-conversation", conversationId);
 
     socket.on("refresh-messages", message => {
       console.log("refresh");
@@ -77,12 +79,10 @@ class ChatBottomItem extends Component {
    * current channel
    */
   componentWillUnmount = () => {
-    let getOpenChats = this.props.getOpen()
-    let openChats = getOpenChats.func
-    if(openChats[this.state.conversationId] === undefined) {
-      socket.removeAllListeners();
-      socket.emit("leave-conversation", this.state.conversationId);
-    }
+    let getOpenChats = this.props.getOpen();
+    let openChats = getOpenChats.func;
+    socket.removeAllListeners();
+    socket.emit("leave-conversation", this.state.conversationId);
   };
 
   onChange = e => {
@@ -124,32 +124,27 @@ class ChatBottomItem extends Component {
   render() {
     return (
       <div className="chatItem">
-        <FontAwesome
-          name="times"
-          onClick={this.closeChat}
-          className="closeIcon"
-        />
         <div className="chatBottomContainer">
           <div className="chatBottomContent">
-            <Link to={`/messages/${this.state.conversationId}`}>
-              <div className="chatBottomInfo">
-                {this.state.otherUser.firstName} {this.state.otherUser.lastName}{" "}
-                - {this.state.listing.name}
-              </div>
-            </Link>
             <ul className="chatBottomMessages">
-              {this.state.messages.map((message, key) => {
-                return (
-                  <li
-                    className={
-                      message.sender === "You" ? "messageRight" : "messageLeft"
-                    }
-                    key={key}
-                  >
-                    <span>{message.body}</span>
-                  </li>
-                );
-              })}
+              {this.state.loading ? (
+                <div>loading</div>
+              ) : (
+                this.state.messages.map((message, key) => {
+                  return (
+                    <li
+                      className={
+                        message.sender === "You"
+                          ? "messageRight"
+                          : "messageLeft"
+                      }
+                      key={key}
+                    >
+                      <span>{message.body}</span>
+                    </li>
+                  );
+                })
+              )}
               <div
                 style={{ float: "left", clear: "both" }}
                 ref={e => {

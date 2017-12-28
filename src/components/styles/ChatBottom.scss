@@ -1,28 +1,115 @@
 .chatBottom {
     position: fixed;
-    bottom: 0;
-    right: 30px;
-    display: flex;
+    bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
+    right: 10px;
+    width: 325px;
+    transition: .2s;
+    height: 260px;
+    border: solid 1px rgb(197, 197, 197);
     z-index: 9;
+    background: white;
+    overflow-x: auto;
+    &-cont {
+        display: flex;
+        position: fixed;
+        width: 325px;
+        height: 40px;
+        transition: .2s;
+        margin-top: -40px;
+    }
+    &-loading {
+        height: 260px;
+    }
+    &-closed {
+        position: fixed;
+        bottom: 10px;
+        right: 10px;
+        transition: .2s;
+        width: 50px;
+        display: flex;
+        flex-direction: column;
+        z-index: 9;
+        background: white;
+        &-banner {
+            background: #ff6d63;
+            border: solid 1px #ff6d63;
+            margin: -1px -1px;
+            padding: 10px;
+            box-shadow: none;
+            color: white;
+            &-fixed {
+                transition: .2s;
+                position: fixed;
+                bottom: 10px;
+                right: 10px;
+                &:hover{
+                    bottom: 15px;
+                    right: 15px;
+                    transition: .2s;
+                }
+            }
+        }
+    }
+    &-banner {
+        cursor: pointer;
+        flex: 1;
+        background: #ff6d63;
+        border: solid 1px #ff6d63;
+        margin: -1px -1px;
+        padding: 10px;
+        color: white;
+        &-prev {
+            &:before {
+                content: "<";
+                float: right;
+            }
+            &:hover {
+                &:before {
+                    content: "<";
+                    float: right;
+                    transition: .2s;
+                    padding: 0 5px;
+                }
+            }
+            background: #ff6d63;
+            border: solid 1px #ff6d63;
+            transition: .2s;
+            margin: -1px -1px;
+            color: white;
+            cursor: pointer;
+            padding: 10px;
+        }
+    }
+    &-list-item--alt,
+    &-list-item {
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        padding: 10px;
+        cursor: pointer;
+        &:after {
+            content: ">";
+            float: right;
+            padding: 0 5px 0;
+            transition: .2s;
+        }
+        &:hover {
+            &:after {
+                content: ">";
+                float: right;
+                padding: 0;
+                transition: .2s;
+            }
+        }
+        &--alt {
+            background: rgb(240, 240, 240);
+        }
+    }
 }
 
 .chatItem {
-    width: 250px;
-    height: 310px;
-    border: solid 1px rgb(175, 175, 175);
-    border-bottom: 0px white;
-    border-top: 0px white;
-    background: white;
-    margin: 0 10px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, .25);
-}
-
-.closeIcon {
-    position: absolute;
-    top: -20px;
-    cursor: pointer;
 }
 
 .chatBottomContent {
@@ -56,9 +143,9 @@
         color: white;
     }
     ul {
-        height: 250px;
+        word-break: break-word;
+        height: 225px;
         padding: 0 5px;
-        width: 240px;
         overflow-y: auto;
         overflow-x: hidden;
         display: flex;
@@ -75,12 +162,14 @@
             border-radius: 7px;
             padding: 7px;
             font-size: 14px;
-            margin: 10px 10px 10px 20px;
+            margin: 2px;
+            margin-left: 50px;
         }
         .messageLeft {
             width: 100%;
             background: none;
-            margin: 10px 20px 10px 10px;
+            margin-right: 50px;
+            margin: 2px;
             span {
                 background-color: rgb(237, 237, 237);
                 padding: 7px;
@@ -89,7 +178,4 @@
             }
         }
     }
-}
-.chatBottomContainer {
-    height: 100%;
 }
