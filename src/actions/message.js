@@ -36,6 +36,12 @@ export function getChat(data) {
   }
 }
 
+export function getMoreMessages(data) {
+  return dispatch => {
+    return axios.get(`/api/chat/paginate/${data.conversationId}/${data.pivot._id}`)
+  }
+}
+
 
 /**
  * 

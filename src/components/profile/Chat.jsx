@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom'
 import FontAwesome from 'react-fontawesome'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
+import Waypoint from 'react-waypoint'
 
 // User Functions
-import { getOpen, closeChat, addChat } from '../../actions/chat.js'
-import { getChat, sendMessage } from '../../actions/message.js'
+import { getChat, sendMessage, getMoreMessages } from '../../actions/message.js'
 import socket from '../../utils/socket.js'
 import mapStateToProps from '../../utils/redux.js'
 
@@ -27,9 +27,8 @@ class Chat extends Component {
       photos: [{image: ''}]
     },
     conversationId: '',
-    isMin: false,
-    redirect: false,
-    bottomChats: {}
+    pivot: null,
+    stickyPoint: null
   }
 
   /**
@@ -43,21 +42,51 @@ class Chat extends Component {
     const _id = this.props.user.info.id
     // Set conversationId because componentDidMount and other
     // functions depends on this variable
-    let bottomChats = this.props.getOpen().func
-    this.setState({ conversationId, isMin: false, bottomChats })
+    this.setState({ conversationId })
     this.props.getChat({conversationId, _id})
     .then(res => {
       // Parse the messages to differentiate who sent the message
+      let pivot = null
+      if(res.data.messages.length >= 20) {
+        pivot = res.data.messages[0]
+      }
       let messages = res.data.messages.map(message => {
         if(message.author === this.props.user.info.id)
           return { sender: 'You', body: message.body }
         else
           return { sender: res.data.user.firstName , body: message.body }
       })
-      this.setState({ messages, otherUser: res.data.user, listing: res.data.listing })
+      this.setState({ messages, otherUser: res.data.user, listing: res.data.listing, pivot })
       this.scrollToBottom()
     })
     .catch(err => console.log(err))
+  }
+
+  handleWaypointEnter = () => {
+    const { pivot, conversationId } = this.state
+    if(pivot !== null && conversationId != '') {
+      this.props.getMoreMessages({ conversationId, pivot })
+      .then(res => {
+        let pivot = null
+        if(res.data.length >= 20) {
+          pivot = res.data[0]
+        }
+        let messages = res.data.map(message => {
+          if(message.author === this.props.user.info.id)
+            return { sender: 'You', body: message.body }
+          else
+            return { sender: this.state.otherUser.firstName , body: message.body }
+        })
+        this.setState({ messages: [...messages, ...this.state.messages ], pivot})
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
+  }
+
+  handleWaypointLeave = e => {
+    console.log('leaving top')
   }
 
   /**
@@ -65,13 +94,8 @@ class Chat extends Component {
    * check if the current user sent the new message.
    */
   componentDidMount = () => {
-    // this.removeFromLocalStorage()
     const { conversationId } = this.state
-    let getOpenChats = this.props.getOpen()
-    let openChats = getOpenChats.func
-    if(openChats[this.state.conversationId] === undefined) {
-      socket.emit('join-conversation', conversationId)
-    }
+    socket.emit('join-conversation', conversationId)
     socket.on('refresh-messages', message => {
       let parsedMessage = message
       if(message.sender === this.props.user.info.id)
@@ -89,12 +113,12 @@ class Chat extends Component {
    * current channel
    */
   componentWillUnmount = () => {
-    let getOpenChats = this.props.getOpen()
-    let openChats = getOpenChats.func
-    if(openChats[this.state.conversationId] === undefined) {
-      socket.removeAllListeners();
-      socket.emit("leave-conversation", this.state.conversationId);
-    }
+    socket.removeAllListeners();
+    socket.emit("leave-conversation", this.state.conversationId);
+  }
+
+  componentDidUpdate() {
+    console.log(this.state.stickyPoint)
   }
 
   /**
@@ -102,19 +126,6 @@ class Chat extends Component {
    */
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value})
-  }
-
-  minChat = () => {
-    this.props.addChat(this.state.conversationId)
-    let bottomChats = this.props.getOpen()
-    console.log(bottomChats)
-    this.setState({ isMin: true, redirect: true, bottomChats })
-  }
-
-  removeFromLocalStorage = () => {
-    this.props.closeChat(this.state.conversationId)
-    let bottomChats = this.props.getOpen()
-    this.setState({ bottomChats })
   }
 
   /**
@@ -177,25 +188,23 @@ scrollToBottom = () => {
       <br/>
       <div className='chatContainer'>
           <div className='chatContent'>
-            {/**<Link to={`/user/${this.state.otherUser._id}`} className='chatHeader'>
-              <img src={this.state.otherUser.profile_picture} alt='profile'/>
-              <h3>{this.state.otherUser.firstName} {this.state.otherUser.lastName}</h3>
-    </Link>**/}
-            <ul className='chatMessages'>
-              {
-                this.state.messages.map((message, key) => {
-                  return (
-                    <li
-                      className={message.sender === 'You' ? 'messageRight' : 'messageLeft'}
-                      key={key}>
-                      {message.body}
-                    </li>
-                  )
-                })
-              }
-              <div style={{ float:"left", clear: "both" }} ref={(e) => { this.messagesEnd = e }}>
-              </div>
-            </ul>
+              <ul className='chatMessages' onScroll={this.handleScroll}>
+
+                <Waypoint 
+                  onEnter={this.handleWaypointEnter} 
+                  onLeave={this.handleWaypointLeave} />
+                  {this.state.messages.map((message, key) => {
+                      return (
+                        <li
+                          className={message.sender === 'You' ? 'messageRight' : 'messageLeft'}
+                          key={key}>
+                          {message.body}
+                        </li>
+                      )
+                    })
+                  }
+                <div style={{ float:"left", clear: "both" }} ref={(e) => { this.messagesEnd = e }}/>
+              </ul>
             <form className="chatInput" onSubmit={this.sendMessage}>
               <input
                 type='text'
@@ -213,4 +222,4 @@ scrollToBottom = () => {
 }
 
 
-export default connect(mapStateToProps, { getChat, sendMessage, getOpen, closeChat, addChat })(Chat)
+export default connect(mapStateToProps, { getChat, getMoreMessages, sendMessage,})(Chat)
