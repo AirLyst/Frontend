@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import FontAwesome from "react-fontawesome";
-import { Link } from "react-router-dom";
 
 // User Functions
 // import { getChat, sendMessage } from "../actions/message.js";
@@ -79,8 +78,8 @@ class ChatBottomItem extends Component {
    * current channel
    */
   componentWillUnmount = () => {
-    let getOpenChats = this.props.getOpen();
-    let openChats = getOpenChats.func;
+    // let getOpenChats = this.props.getOpen();
+    // let openChats = getOpenChats.func;
     socket.removeAllListeners();
     socket.emit("leave-conversation", this.state.conversationId);
   };
@@ -98,7 +97,7 @@ class ChatBottomItem extends Component {
 
   closeChat = () => {
     this.props.closeChat(this.state.conversationId);
-    let openChats = this.props.getOpen();
+    // let openChats = this.props.getOpen();
   };
 
   sendMessage = e => {

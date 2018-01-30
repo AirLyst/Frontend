@@ -1,25 +1,47 @@
 .searchBarContainer {
-
-}
-
-.searchBarContainer form {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 1400px;
+  width: 80%;
+  max-width: 1200px;
   margin: auto;
+  position: sticky;
+  
+  form {
+    display: flex;
+    justify-content: flex-start;
+    margin: auto;
+
+  }
+
+   input {
+    width: 90%;
+    height: 50px;
+    color: #777;
+    padding: 0% 30px;
+    font-size: 24px;
+    outline: none;
+    -webkit-appearance: none;
+    border: solid 1px #EEE;
+  }
+
+  button {    
+    background-color: white;
+    color: #F29B70;
+    font-size: 22px;
+    border: solid 1px #EEE;
+    padding: 0px 15px;
+    border-left: none;
+    transition: all 0.5s;
+    cursor: pointer;
+    &:hover {
+      background-color: #F29B70;
+      color: white;
+    }
+  }
 }
 
-.searchBarContainer input {
-  width: 60%;
-  height: 50px;
-  color: #CCC;
-  padding: 0% 5%;
-  font-size: 30px;
-  outline: none;
-  -webkit-appearance: none;
-  border: solid 1px #EEE;
-  -webkit-box-shadow: 0px 5px 25px 0px rgba(0,0,0,0.05);
-  -moz-box-shadow: 0px 5px 25px 0px rgba(0,0,0,0.05);
-  box-shadow: 0px 5px 25px 0px rgba(0,0,0,0.05);
+@media (max-width: 800px) {
+  .searchBarContainer {
+    input {
+      font-size: 16px;
+    }
+  }
 }

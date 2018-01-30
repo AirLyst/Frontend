@@ -27,7 +27,7 @@ class Listing extends Component {
     viewingSelf: false,
     error: {
       request: null
-    }
+    },
   }
 
   /**
@@ -40,12 +40,11 @@ class Listing extends Component {
     const listingId = this.props.match.params[0]
     this.props.getListingById(listingId)
     .then(res => {
+
       this.setState({ 
         listing: res.data, 
-        isLoading: false
+        isLoading: false,
       })
-      if(this.state.listing.user._id === this.props.user.info.id)
-        this.setState({ viewingSelf: true })
     })
     .catch(err => {
       this.setState({ error: { request: 'Failed to get listing.'} })
@@ -86,8 +85,29 @@ class Listing extends Component {
     return (
       <div>
         {
-          this.state.isLoading ? <Loading /> : (
+          this.state.isLoading 
+          ? <Loading /> 
+          : (
           <div className="listingPageContainer">
+          <div className={this.state.listing.photos.length >= 3 ? "listingImageContainer spbetween" : "listingImageContainer sparound"}>
+            {this.state.listing.photos.map((photo, key) => {
+              return (
+                <span key={key}>
+                  <ImageCard 
+                    src={photo.image} 
+                    description={photo.description} 
+                    key={key} 
+                    indx={key}
+                    onDel={this.onDel}
+                    noEdit 
+                  />
+                <div className='descriptionCard'>
+                  {photo.description}
+                </div>
+                </span>
+              )
+            })}
+          </div>
             <h1>{this.state.listing.name}</h1>
             <hr />
             <div className="listingInfoContainer">
@@ -143,29 +163,6 @@ class Listing extends Component {
                 </span>
               </div>
               }
-
-            
-            <h1>Photos & Descriptions</h1>
-            <hr />
-            <div className={this.state.listing.photos.length >= 3 ? "listingImageContainer spbetween" : "listingImageContainer sparound"}>
-              {this.state.listing.photos.map((photo, key) => {
-                return (
-                  <span key={key}>
-                    <ImageCard 
-                      src={photo.image} 
-                      description={photo.description} 
-                      key={key} 
-                      indx={key}
-                      onDel={this.onDel}
-                      noEdit 
-                    />
-                  <div className='descriptionCard'>
-                    {photo.description}
-                  </div>
-                  </span>
-                )
-              })}
-            </div>
           </div>
           )
       }

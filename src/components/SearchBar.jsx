@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import FontAwesome from 'react-fontawesome'
 
 import './styles/SearchBar.scss'
 
@@ -19,13 +20,19 @@ class SearchBar extends Component {
   render() {
     return (
       <div className='searchBarContainer'>
+        <h1>Search</h1>
         <form className='searchBar' onSubmit={this.onSubmit}>
           <input
             type='text'
             name='query'
-            placeholder='Search for designers, type, colors...'
+            placeholder='Look for Nike, Hoodies, etc.'
             onChange={this.onChange}
             value={this.state.searchParam}/>
+          <button
+            type='subit'
+            onSubmit={this.onSubmit}>
+            <FontAwesome name='search' />
+          </button>
         </form>
       </div>
     )

@@ -64,7 +64,7 @@ class Chat extends Component {
 
   handleWaypointEnter = () => {
     const { pivot, conversationId } = this.state
-    if(pivot !== null && conversationId != '') {
+    if(pivot !== null && conversationId !== '') {
       this.props.getMoreMessages({ conversationId, pivot })
       .then(res => {
         let pivot = null

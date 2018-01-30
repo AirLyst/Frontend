@@ -96,7 +96,7 @@ class Listings extends Component {
         {this.state.isLoading && <span className='listingLoading'><RotatingPlane size={50} color='#F29B70'/></span>}
         {this.state.noListings &&
           <div>  
-            <h2>That's all you got 🅱️</h2>
+            <h2>That's all for now.</h2>
             <FontAwesome name='arrow-up' onClick={this.scrollUp}/>
             <br/><br/><br/><br/>
           </div>

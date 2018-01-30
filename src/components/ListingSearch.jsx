@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import FontAwesome from 'react-fontawesome'
 import { getListingsByQuery } from '../actions/listing'
 import mapStateToProps from '../utils/redux.js'
-import Select, { Creatable } from 'react-select';
+import Select from 'react-select';
 
 import './styles/ListingSearch.scss'
 import { sizing, conditionOptions, categoryOptions } from './data/Sizing'
@@ -20,6 +20,7 @@ class ListingSearch extends Component {
     condition: "new"    
   }
 
+  // Event Listener for infinite scroll
   componentDidMount = () => {
     window.addEventListener('scroll', this.handleScroll)
   }
@@ -121,7 +122,7 @@ class ListingSearch extends Component {
             />
           </span>
         </span>
-        <hr/><br/>  
+        <br/>  
         <div className='userListingContainer'>
           <div className='listingSearchContent'>
             {this.state.listings.map((listing, key) => {
@@ -139,7 +140,7 @@ class ListingSearch extends Component {
           {this.state.isLoading && <Loading message="Searching..."/>}
           {this.state.noListings &&
             <div>  
-              <h2>That's all you got <span role='img'>🅱️ </span></h2>
+              <h2>That's all you got</h2>
               <FontAwesome name='arrow-up' onClick={this.scrollUp}/>
               <br/><br/><br/><br/>
             </div>

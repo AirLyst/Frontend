@@ -2,7 +2,6 @@ import React      from 'react'
 import { Route, NavLink, Link }  from 'react-router-dom'
 import { connect } from 'react-redux'
 import mapStateToProps from "../utils/redux.js"
-import Ionicon from 'react-ionicons'
 import FontAwesome from 'react-fontawesome'
 //%% fix this later, move back to Home
 
@@ -16,8 +15,10 @@ import Accessories from './categories/Accessories.jsx'
 import SearchBar   from './SearchBar.jsx'
 import moment from 'moment'
 
+// Images, Media
 import busSVG from '../images/bus_stop.svg'
 import profileSVG from '../images/profile.svg'
+
 //Styles
 import './styles/Home.scss'
 
@@ -27,26 +28,27 @@ class Home extends React.Component {
     this.getGreetingTime()
   }
 
-getGreetingTime () {
-  const m = moment()
-	let greeting = 'Welcome back'
-	
-	if(!m || !m.isValid()) { return; } //if we can't find a valid or filled moment, we return.
-	
-	const split_afternoon = 12 //24hr time to split the afternoon
-	const split_evening = 17 //24hr time to split the evening
-	const currentHour = parseFloat(m.format("HH"));
-	
-	if(currentHour >= split_afternoon && currentHour <= split_evening) {
-		greeting = "Good afternoon";
-	} else if(currentHour >= split_evening) {
-		greeting = "Good evening";
-	} else {
-		greeting = "Good morning";
+  // Decide how to greet based on time of the day
+  getGreetingTime () {
+    const m = moment()
+    let greeting = 'Welcome back'
+    
+    if(!m || !m.isValid()) { return; } //if we can't find a valid or filled moment, we return.
+    
+    const split_afternoon = 12 //24hr time to split the afternoon
+    const split_evening = 17 //24hr time to split the evening
+    const currentHour = parseFloat(m.format("HH"));
+    
+    if(currentHour >= split_afternoon && currentHour <= split_evening) {
+      greeting = "Good afternoon";
+    } else if(currentHour >= split_evening) {
+      greeting = "Good evening";
+    } else {
+      greeting = "Good morning";
+    }
+    
+    this.setState({ greeting })
   }
-	
-	this.setState({ greeting })
-}
 
   render() {
     return (
@@ -99,6 +101,8 @@ getGreetingTime () {
               </span>
             </span>
           }
+          <SearchBar />
+          <br/><br/>
           <Recents query='recents' />
           <span className='shopCategoryContainer'>
             <span className='shopCategoryImage'>
@@ -137,7 +141,6 @@ getGreetingTime () {
               )}
               </span>
           </div>
-          <SearchBar />
           <div style={{height: '1000px'}}/>
       </div>
     )

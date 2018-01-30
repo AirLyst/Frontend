@@ -100,7 +100,7 @@ class Signup extends Component {j
   render() {
     return (
       <div className='signup-outer'>
-        <h1>Sign Up</h1>
+        <h1>Signup</h1>
         <div className="signupContainer">
           <form onSubmit={this.onSubmit} className="signupForm">
             <span className='inputs'><span className='left-item'><label>First Name</label>
@@ -170,30 +170,36 @@ class Signup extends Component {j
                 <span className="modalError">{this.state.errors.confirmPassword}</span>
             }
           </span>
-              <button type='submit' onClick={this.onSubmit}>Sign Up</button>
+              <button type='submit' onClick={this.onSubmit}>Complete Signup</button>
           </form>
         </div>
-          <span className='outsideSignup'><FacebookLogin
-            appId="1149120715232337"
-            callback={this.facebookSignup}
-            fields="name,email"
-            icon="fa-facebook-f fa-lg"
-            textButton="&emsp;Signup with Facebook"
-            cssClass="mediaLogin facebook"
-          />
-          <br/>
-          <GoogleLogin
-            clientId="806344560011-hrjb8lgp4ugu7kcqaspdmkjgkdjv2gp2.apps.googleusercontent.com"
-            buttonText="Signup with Google"
-            onSuccess={this.googleSignup}
-            onFailure={this.googleSignupFail}
-            className="mediaLogin google">
-            <FontAwesome
-              name="google lg"
-              id="googleLogo"
-              size="lg"/>
-              <span>&emsp;Signup with Google</span>
-          </GoogleLogin></span>
+        <span className='signupDivider'>
+          <hr/>
+          <p>Or</p>
+        </span>
+        <span className='outsideSignup'>
+          <FacebookLogin
+              appId="1149120715232337"
+              callback={this.facebookSignup}
+              fields="name,email"
+              icon="fa-facebook-f fa-lg"
+              textButton="&emsp;Signup with Facebook"
+              cssClass="mediaLogin facebook"
+            />
+            <br/>
+            <GoogleLogin
+              clientId="806344560011-hrjb8lgp4ugu7kcqaspdmkjgkdjv2gp2.apps.googleusercontent.com"
+              buttonText="Signup with Google"
+              onSuccess={this.googleSignup}
+              onFailure={this.googleSignupFail}
+              className="mediaLogin google">
+              <FontAwesome
+                name="google lg"
+                id="googleLogo"
+                size="lg"/>
+                <span>&emsp;Signup with Google</span>
+            </GoogleLogin>
+          </span>
       </div>
     );
   }

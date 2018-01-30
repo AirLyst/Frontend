@@ -1,5 +1,13 @@
 $tag: #ff6d63;
 
+.listingPageImageContainer {
+  border: solid 1px;
+  height: calc(60vh);
+  img {
+    width: 300px;
+  }
+}
+
 .listingPageContainer {
   text-align: center;
   width: 80%;

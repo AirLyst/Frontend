@@ -32,6 +32,8 @@
 .listingLoading {
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: calc(50vh);
 }
 @media (max-width: 800px) {
   .userListings {

@@ -1,4 +1,4 @@
-
+$light-orange: #FC986C;
 .signup-outer {
   display: flex;
   flex-direction: column;
@@ -15,30 +15,28 @@
     border: .5px #B6B6B6 solid;
     box-sizing: border-box;
     outline: none;
-    border: solid 1px #c8c8c8;
-    border-radius: 5px;
+    border: solid 1px #ccc;
+    border-radius: 3px;
     font-size: 16px;
-    height: 30px;
+    height: 38px;
     padding: 2px 5px;
+    transition: all 0.5s;
+    &:focus {
+      border-color: $light-orange;
+    }
   }
   button {
     -webkit-appearance: none;
-    background: none;
-    border: solid 1px #c8c8c8;
+    background: $light-orange;
+    color: white;
+    border: solid 1px $light-orange;
     cursor: pointer;
-    padding: 10px;
+    padding: 14px 10px;
+    border-radius: 5px;
+    font-size: 16px;
   }
-}
-
-.outsideSignup {
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  .facebook {
-    margin: 0 5px 0 0;
-  }
-  .google {
-    margin: 0 0 0 5px;
+  label {
+    color: #555;
   }
 }
 
@@ -55,4 +53,57 @@
 }
 .right-item {
   margin: 0 0 0 5px;
+}
+
+.signupDivider {
+  margin-top: 20px;
+  hr {
+    border: none;
+    border-bottom: solid 2px #ddd;
+    width: 365px;
+    border-radius: 5px;
+  }
+
+  p {
+    text-align: center;
+    background-color: white;
+    margin: auto;
+    margin-top: -18px;    
+    width: 30px;
+    padding-left: 2px;
+    color: #aaa;
+  }
+}
+
+
+.outsideSignup {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+
+.mediaLogin {
+  display: block;
+  color: white;
+  font-family: 'Karla', sans-serif;
+  font-size: 16px;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 5px;
+  border: none;
+  padding: 14px 20px;
+  width: 365px;
+  margin: auto;
+  cursor: pointer;
+  animation: scale-off 0.5s forwards;
+  -webkit-backface-visibility: hidden;
+}
+
+.mediaLogin.facebook {
+  background-color: #3B5998;
+}
+
+.mediaLogin.google {
+  background-color: #D62D20;
 }

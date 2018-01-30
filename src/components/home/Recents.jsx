@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { RotatingPlane } from 'better-react-spinkit'
-// import AnimatedBox  from '../reusable/AnimatedBox.jsx'
-
-import Ionicon from 'react-ionicons'
 
 import './styles/Recents.scss'
 

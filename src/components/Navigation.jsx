@@ -140,6 +140,7 @@ class Navigation extends Component {
           <ul className={this.state.dropdownStyle}>
             <li><Link to="/sell" className="dropdownLink" onClick={this.toggleMenu}>Sell</Link></li>
             <li><Link to={`/profile`} className="dropdownLink" onClick={this.toggleMenu}>Profile</Link></li>
+            <li><Link to={`/profile/messages`} className="dropdownLink" onClick={this.toggleMenu}>Messages</Link></li>
             <li><Link to="/" className="dropdownLink" onClick={this.logout}>Logout</Link></li>
           </ul>}
       </span>

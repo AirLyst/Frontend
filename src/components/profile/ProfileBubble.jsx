@@ -32,7 +32,7 @@ class ProfileBubble extends Component {
   render() {
     return (
       <div className={`profileBubble ${this.state.bubbleStyle}`}>
-        {this.props.user.info.firstName[0]}
+        {this.props.user.info.firstName && this.props.user.info.firstName[0]}
       </div>
     )
   }
